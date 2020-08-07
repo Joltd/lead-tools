@@ -1,0 +1,26 @@
+<div class="ticket-row border rounded p-2 m-2 shadow-sm">
+    <div class="tick" (click)="ticket.subVisible = !ticket.subVisible">
+        <i *ngIf="ticket.subVisible" class="material-icons">expand_more</i>
+        <i *ngIf="!ticket.subVisible && ticket.sub && ticket.sub.length > 0" class="material-icons">chevron_right</i>
+    </div>
+    <div><a href="https://jira.magenta-technology.ru/browse/{{ticket.number}}" target="_blank">{{ticket.number}}</a></div>
+    <status [status]="ticket.status"></status>
+    <div>{{ticket.assignee}}</div>
+    <div>{{ticket.title}}</div>
+    <div class="input-group">
+        <textarea class="form-control" [(ngModel)]="ticket.comment"></textarea>
+        <div class="input-group-append">
+            <button class="btn btn-secondary" type="button"
+                    (click)="saveComment()">
+                <i class="material-icons">done</i>
+            </button>
+            <button class="btn btn-secondary" type="button"
+                    (click)="clearComment()">
+                <i class="material-icons">clear</i>
+            </button>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>
+    </div>
+</div>
