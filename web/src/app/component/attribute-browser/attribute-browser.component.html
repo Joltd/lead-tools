@@ -11,12 +11,12 @@
                 <input type="checkbox" [ngModel]="attribute.readonly" disabled [hidden]="!attribute.readonly">
             </div>
             <div class="btn-group">
-                <button class="btn btn-secondary" type="button" *ngIf="!isEditing(attribute)" (click)="edit(attribute)"><i class="material-icons">edit</i></button>
-                <button class="btn btn-secondary" type="button" *ngIf="!isEditing(attribute)" (click)="delete(attribute.id)"><i class="material-icons">delete</i></button>
-                <button class="btn btn-secondary" type="button" *ngIf="isEditing(attribute)" (click)="save()"><i class="material-icons">done</i></button>
-                <button class="btn btn-secondary" type="button" *ngIf="isEditing(attribute)" (click)="cancel()"><i class="material-icons">close</i></button>
+                <button class="btn btn-light" type="button" *ngIf="!isCurrent(attribute)" (click)="edit(attribute)"><i class="material-icons">edit</i></button>
+                <button class="btn btn-light" type="button" *ngIf="!isCurrent(attribute)" (click)="delete(attribute.id)"><i class="material-icons">delete</i></button>
+                <button class="btn btn-light" type="button" *ngIf="isCurrent(attribute)" (click)="save()"><i class="material-icons">done</i></button>
+                <button class="btn btn-light" type="button" *ngIf="isCurrent(attribute)" (click)="cancel()"><i class="material-icons">close</i></button>
             </div>
         </div>
-        <attribute-view *ngIf="isEditing(attribute)" [attribute]="attribute"></attribute-view>
+        <attribute-view *ngIf="isCurrent(attribute)" [attribute]="attribute"></attribute-view>
     </div>
 </div>

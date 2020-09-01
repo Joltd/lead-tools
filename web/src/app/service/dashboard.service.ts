@@ -15,34 +15,16 @@ export class DashboardService {
 
     load(): Observable<Dashboard[]> {
         return this.http.get<any[]>(environment.apiUrl + DashboardService.PATH)
-            .pipe(map(result => result.map(entry => DashboardService.toModel(entry))));
+            .pipe(map(result => result.map(entry => Dashboard.from(entry))));
     }
 
     update(dashboard: Dashboard): Observable<Dashboard> {
-        return this.http.post<any>(environment.apiUrl + DashboardService.PATH, DashboardService.toSave(dashboard))
-            .pipe(map(result => DashboardService.toModel(result)))
+        return this.http.post<any>(environment.apiUrl + DashboardService.PATH, dashboard.toSave())
+            .pipe(map(result => Dashboard.from(result)))
     }
 
     delete(id: number): Observable<void> {
         return this.http.delete<void>(environment.apiUrl + DashboardService.PATH + '/' + id);
-    }
-
-    private static toModel(entry: any): Dashboard {
-        let attribute = new Dashboard();
-        attribute.id = entry.id;
-        attribute.name = entry.name;
-        attribute.query = entry.query;
-        attribute.attributes = entry.attributes;
-        return attribute;
-    }
-
-    private static toSave(dashboard: Dashboard): any {
-        return {
-            id: dashboard.id,
-            name: dashboard.name,
-            query: dashboard.query,
-            attributes: dashboard.attributes
-        };
     }
 
 }

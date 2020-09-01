@@ -10,7 +10,7 @@ import {AttributeService} from "../../service/attribute.service";
 export class AttributeBrowserComponent implements OnInit {
 
     attributes: Attribute[] = [];
-    editing: Attribute;
+    current: Attribute;
 
     constructor(private attributeService: AttributeService) {}
 
@@ -23,7 +23,7 @@ export class AttributeBrowserComponent implements OnInit {
     }
 
     new() {
-        if (this.editing && !this.editing.id) {
+        if (this.current && !this.current.id) {
             return
         }
         let attribute = new Attribute();
@@ -31,12 +31,12 @@ export class AttributeBrowserComponent implements OnInit {
         this.edit(attribute);
     }
 
-    isEditing(attribute: Attribute) {
-        return this.editing && this.editing.id == attribute.id;
+    isCurrent(attribute: Attribute) {
+        return this.current && this.current.id == attribute.id;
     }
 
     edit(attribute: Attribute) {
-        this.editing = attribute;
+        this.current = attribute;
     }
 
     delete(id: number) {
@@ -44,11 +44,11 @@ export class AttributeBrowserComponent implements OnInit {
     }
 
     save() {
-        if (!this.editing) {
+        if (!this.current) {
             return;
         }
 
-        this.attributeService.update(this.editing)
+        this.attributeService.update(this.current)
             .subscribe(() => {
                 this.cancel();
                 this.load();
@@ -56,7 +56,7 @@ export class AttributeBrowserComponent implements OnInit {
     }
 
     cancel() {
-        this.editing = null;
+        this.current = null;
         this.attributes = this.attributes.filter(attribute => attribute.id);
     }
 

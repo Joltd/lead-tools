@@ -1,0 +1,26 @@
+.browser {
+  display: flex;
+  flex-direction: column;
+}
+
+.current {
+
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-gap: 1rem;
+
+  .name {
+
+    display: flex;
+
+    .form-control {
+      height: 44px;
+    }
+
+  }
+
+  .query {
+    grid-column: span 2;
+  }
+
+}

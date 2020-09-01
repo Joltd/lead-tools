@@ -13,22 +13,20 @@ import {StatusComponent} from "./component/status/status.component";
 import {ToolbarComponent} from "./component/toolbar/toolbar.component";
 import {AttributeService} from "./service/attribute.service";
 import {DashboardService} from "./service/dashboard.service";
-import {MainMenuComponent} from "./component/main-menu/main-menu.component";
 import {DashboardBrowserComponent} from "./component/dashboard-browser/dashboard-browser.component";
 import {AttributeBrowserComponent} from "./component/attribute-browser/attribute-browser.component";
-import {DashboardViewComponent} from "./component/dashboard-view/dashboard-view.component";
 import {AttributeViewComponent} from "./component/attribute-view/attribute-view.component";
+import {TicketViewComponent} from "./component/ticket-view/ticket-view.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainMenuComponent,
     AttributeBrowserComponent,
     AttributeViewComponent,
     DashboardBrowserComponent,
-    DashboardViewComponent,
     TicketBrowserComponent,
     TicketRowComponent,
+    TicketViewComponent,
     StatusComponent,
     ToolbarComponent
   ],

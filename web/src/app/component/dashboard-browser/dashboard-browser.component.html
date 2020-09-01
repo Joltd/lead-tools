@@ -1,2 +1,40 @@
-<div *ngFor="let dashboard of dashboards" (click)="this.open(dashboard)">{{dashboard.name}}</div>
-<ticket-browser></ticket-browser>
+<div class="browser p-3">
+    <div class="mb-3">
+        <div class="btn-group">
+            <button *ngFor="let dashboard of this.dashboards" class="btn border" [class]="getDashboardClass(dashboard)" (click)="open(dashboard)">{{dashboard.name}}</button>
+            <button class="btn btn-light border" (click)="new()"><i class="material-icons">add</i></button>
+        </div>
+    </div>
+
+    <div *ngIf="current" class="current">
+        <div class="name mr-3">
+            <h3 (click)="startEditName()" *ngIf="!editName">{{current.name}}</h3>
+            <div class="input-group w-25" *ngIf="editName">
+                <input type="text" class="form-control" [(ngModel)]="editName">
+                <div class="input-group-append">
+                    <button class="btn btn-light" type="button" (click)="doneEditName()"><i class="material-icons">done</i></button>
+                    <button class="btn btn-light" type="button" (click)="cancelEdiName()"><i class="material-icons">close</i></button>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-light" type="button" (click)="delete()"><i class="material-icons">delete</i></button>
+
+        <div class="input-group query">
+            <input type="text" class="form-control">
+            <div class="input-group-append">
+                <button class="btn btn-light" type="button" (click)="search()"><i class="material-icons">search</i></button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-light" type="button" (click)="search()"><i class="material-icons">loop</i></button>
+            <button class="btn btn-light" type="button" (click)="search()"><i class="material-icons">cloud_download</i></button>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-light" type="button" (click)="search()"><i class="material-icons">more_vert</i></button>
+        </div>
+    </div>
+
+</div>
