@@ -17,12 +17,14 @@ import {MainMenuComponent} from "./component/main-menu/main-menu.component";
 import {DashboardBrowserComponent} from "./component/dashboard-browser/dashboard-browser.component";
 import {AttributeBrowserComponent} from "./component/attribute-browser/attribute-browser.component";
 import {DashboardViewComponent} from "./component/dashboard-view/dashboard-view.component";
+import {AttributeViewComponent} from "./component/attribute-view/attribute-view.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainMenuComponent,
     AttributeBrowserComponent,
+    AttributeViewComponent,
     DashboardBrowserComponent,
     DashboardViewComponent,
     TicketBrowserComponent,

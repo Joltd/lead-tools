@@ -1,0 +1,7 @@
+.row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 30% 10% 1fr min-content;
+  grid-column-gap: 8px;
+  align-items: center;
+}

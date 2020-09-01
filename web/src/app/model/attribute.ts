@@ -1,10 +1,12 @@
+import {AttributeType} from "./attribute-type";
+
 export class Attribute {
 
     id: number;
 
     name: string;
 
-    type: string;
+    type: AttributeType;
 
     readonly: boolean;
 

@@ -1,0 +1,16 @@
+<div class="view border rounded p-2 m-2 shadow-sm">
+    <label for="name">Name</label>
+    <div class="input-group">
+        <input id="name" type="text" class="form-control " placeholder="Name"  [(ngModel)]="attribute.name">
+    </div>
+
+    <label for="type">Type</label>
+    <div class="input-group">
+        <select class="custom-select" id="type" [(ngModel)]="attribute.type">
+            <option *ngFor="let type of types" [ngValue]="type" [selected]="type == attribute.type">{{type}}</option>
+        </select>
+    </div>
+
+    <label for="readonly">Readonly</label>
+    <input id="readonly" type="checkbox" class="form-control" [(ngModel)]="attribute.readonly">
+</div>

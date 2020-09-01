@@ -1,0 +1,1 @@
+export type AttributeType = 'STRING' | 'TEXT' | 'NUMBER' | 'DATE' | 'DATETIME' | 'BOOLEAN';

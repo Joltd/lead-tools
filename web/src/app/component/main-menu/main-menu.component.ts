@@ -9,10 +9,6 @@ import {Dashboard} from "../../model/dashboard";
 })
 export class MainMenuComponent {
 
-    collapsed: boolean = false;
 
-    toggleCollapsed() {
-        this.collapsed = !this.collapsed;
-    }
 
 }

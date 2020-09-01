@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {TicketService} from "./service/ticket.service";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +6,13 @@ import {TicketService} from "./service/ticket.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'lead-tools';
 
-  constructor(public ticketService: TicketService) {}
+  collapsed: boolean = false;
+
+  constructor() {}
+
+  toggleCollapsed() {
+    this.collapsed = !this.collapsed;
+  }
+
 }

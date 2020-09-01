@@ -1,5 +1,15 @@
 <!--<toolbar></toolbar>-->
 <!--<ticket-browser></ticket-browser>-->
 <!---->
-<main-menu></main-menu>
+<nav>
+    <i class="material-icons c-pointer" (click)="toggleCollapsed()">apps</i>
+</nav>
+<aside class="nav">
+    <div class="nav-item">
+        <a class="nav-link" [class.collapsed]="collapsed" routerLink="/attribute"><i class="material-icons">dashboard</i>Attributes</a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link" [class.collapsed]="collapsed" routerLink="/dashboard"><i class="material-icons">dashboard</i>Dashboards</a>
+    </div>
+</aside>
 <router-outlet></router-outlet>

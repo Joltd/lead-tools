@@ -1,0 +1,22 @@
+<div class="p-3">
+    <div class="btn-group p-2">
+        <button class="btn btn-primary" type="button" (click)="new()"><i class="material-icons">add</i></button>
+    </div>
+    <br>
+    <div *ngFor="let attribute of attributes">
+        <div class="row border rounded p-2 m-2 shadow-sm">
+            <div>{{attribute.name}}</div>
+            <div>{{attribute.type}}</div>
+            <div>
+                <input type="checkbox" [ngModel]="attribute.readonly" disabled [hidden]="!attribute.readonly">
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" type="button" *ngIf="!isEditing(attribute)" (click)="edit(attribute)"><i class="material-icons">edit</i></button>
+                <button class="btn btn-secondary" type="button" *ngIf="!isEditing(attribute)" (click)="delete(attribute.id)"><i class="material-icons">delete</i></button>
+                <button class="btn btn-secondary" type="button" *ngIf="isEditing(attribute)" (click)="save()"><i class="material-icons">done</i></button>
+                <button class="btn btn-secondary" type="button" *ngIf="isEditing(attribute)" (click)="cancel()"><i class="material-icons">close</i></button>
+            </div>
+        </div>
+        <attribute-view *ngIf="isEditing(attribute)" [attribute]="attribute"></attribute-view>
+    </div>
+</div>

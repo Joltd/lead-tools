@@ -51,9 +51,10 @@ public class Attribute {
 
     public enum Type {
         STRING,
+        TEXT,
         NUMBER,
         DATE,
-        BOOLEAN,
-        PRIORITY
+        DATETIME,
+        BOOLEAN
     }
 }
