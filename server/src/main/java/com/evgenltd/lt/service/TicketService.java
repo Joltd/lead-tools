@@ -5,10 +5,12 @@ import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.Subtask;
 import com.atlassian.jira.rest.client.api.domain.User;
 import com.evgenltd.lt.entity.Ticket;
+import com.evgenltd.lt.record.JiraTicketRecord;
 import com.evgenltd.lt.record.TicketRecord;
 import com.evgenltd.lt.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,11 @@ public class TicketService {
     ) {
         this.ticketRepository = ticketRepository;
         this.client = client;
+    }
+
+    public JiraTicketRecord loadJiraTicket(final String number) {
+        final Issue issue = client.getIssueClient().getIssue(number).claim();
+        return toJiraTicketRecord(issue);
     }
 
     public List<TicketRecord> loadTrackedTickets() {
@@ -71,18 +78,22 @@ public class TicketService {
     }
 
     private TicketRecord ticketToRecord(final Ticket ticket) {
-        final Issue issue = client.getIssueClient().getIssue(ticket.getNumber()).claim();
         return new TicketRecord(
                 ticket.getId(),
-                issue.getKey(),
+                ticket.getNumber(),
+                ticket.getComment(),
+                ticket.getTracked(),
+                new ArrayList<>()
+        );
+    }
+
+    private JiraTicketRecord toJiraTicketRecord(final Issue issue) {
+        return new JiraTicketRecord(
                 issue.getSummary(),
                 Optional.ofNullable(issue.getAssignee())
                         .map(User::getDisplayName)
                         .orElse(null),
-                issue.getStatus().getName(),
-                ticket.getComment(),
-                ticket.getTracked(),
-                subtaskListToTicketRecordList(issue.getSubtasks())
+                issue.getStatus().getName()
         );
     }
 

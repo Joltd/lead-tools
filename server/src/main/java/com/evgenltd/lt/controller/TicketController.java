@@ -1,6 +1,6 @@
 package com.evgenltd.lt.controller;
 
-import com.evgenltd.lt.entity.Ticket;
+import com.evgenltd.lt.record.JiraTicketRecord;
 import com.evgenltd.lt.record.TicketRecord;
 import com.evgenltd.lt.repository.TicketRepository;
 import com.evgenltd.lt.service.TicketService;
@@ -44,6 +44,11 @@ public class TicketController {
     public Response<Void> remove(@PathVariable("id") final Long id) {
         ticketRepository.deleteById(id);
         return new Response<>();
+    }
+
+    @GetMapping("/jira/{number}")
+    public Response<JiraTicketRecord> jira(@PathVariable("number") final String number) {
+        return new Response<>(ticketService.loadJiraTicket(number));
     }
 
 }

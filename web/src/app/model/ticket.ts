@@ -19,4 +19,6 @@ export class Ticket {
 
     tracked: boolean = false;
 
+
+
 }

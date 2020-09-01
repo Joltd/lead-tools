@@ -15,6 +15,7 @@ export class StatusComponent {
             case 'Resolved': return 'badge-success'
             case 'Verified':
             case 'In Progress':
+            case 'Under QA':
                 return 'badge-warning'
             default: return 'badge-info'
         }

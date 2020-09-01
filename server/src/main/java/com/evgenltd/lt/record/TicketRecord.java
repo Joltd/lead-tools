@@ -8,9 +8,6 @@ import java.util.List;
 public record TicketRecord(
         Long id,
         String number,
-        String title,
-        String assignee,
-        String status,
         String comment,
         Boolean tracked,
         List<TicketRecord> sub

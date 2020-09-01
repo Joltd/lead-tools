@@ -42,13 +42,28 @@ export class TicketService {
             .pipe(
                 map(result => {
                     this._loading = false;
-                    return this._tickets = result.map(entry => TicketService.toTicket(entry));
+                    this._tickets = [];
+                    for (let entry of result) {
+                        let ticket = TicketService.toTicket(entry)
+                        this._tickets.push(ticket);
+                        this.loadJiraTicket(ticket.number).subscribe(result => {
+                            ticket.title = result.title;
+                            ticket.assignee = result.assignee;
+                            ticket.status = result.status;
+                            ticket.inProgress = false;
+                        })
+                    }
+                    return this._tickets;
                 }),
                 catchError(error => {
                     this._loading = false;
                     return throwError(error);
                 })
             )
+    }
+
+    private loadJiraTicket(number: String): Observable<any> {
+        return this.http.get<any>(environment.apiUrl + '/ticket/jira/' + number);
     }
 
     updateComment(id: number, number: string, comment: string): Observable<void> {
