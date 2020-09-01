@@ -1,12 +1,16 @@
 package com.evgenltd.lt.controller;
 
+import com.evgenltd.lt.entity.Ticket;
 import com.evgenltd.lt.record.JiraTicketRecord;
+import com.evgenltd.lt.record.TicketAttributeRecord;
 import com.evgenltd.lt.record.TicketRecord;
 import com.evgenltd.lt.repository.TicketRepository;
 import com.evgenltd.lt.service.TicketService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ticket")
@@ -24,15 +28,19 @@ public class TicketController {
     }
 
     @GetMapping
-    public Response<List<TicketRecord>> list() {
-        return new Response<>(ticketService.loadTrackedTickets());
+    public Response<List<TicketRecord>> list(@QueryParam("dashboard") final Long dashboardId) {
+        final List<TicketRecord> result = ticketService.loadByDashboard(dashboardId)
+                .stream()
+                .map(this::toRecord)
+                .collect(Collectors.toList());
+        return new Response<>(result);
     }
-
-    @PostMapping("/comment")
-    public Response<Void> updateComment(@RequestBody final TicketRecord ticketRecord) {
-        ticketService.updateComment(ticketRecord.id(), ticketRecord.number(), ticketRecord.comment());
-        return new Response<>();
-    }
+//
+//    @PostMapping("/comment")
+//    public Response<Void> updateComment(@RequestBody final TicketRecord ticketRecord) {
+//        ticketService.updateComment(ticketRecord.id(), ticketRecord.number(), ticketRecord.comment());
+//        return new Response<>();
+//    }
 
     @PostMapping("/track/{number}")
     public Response<Void> trackTicket(@PathVariable("number") final String number) {
@@ -46,9 +54,20 @@ public class TicketController {
         return new Response<>();
     }
 
-    @GetMapping("/jira/{number}")
-    public Response<JiraTicketRecord> jira(@PathVariable("number") final String number) {
-        return new Response<>(ticketService.loadJiraTicket(number));
+//    @GetMapping("/jira/{number}")
+//    public Response<JiraTicketRecord> jira(@PathVariable("number") final String number) {
+//        return new Response<>(ticketService.loadJiraTicket(number));
+//    }
+
+    private TicketRecord toRecord(final Ticket ticket) {
+        return new TicketRecord(
+                ticket.getId(),
+                ticket.getNumber(),
+                ticket.getAttributes()
+                        .stream()
+                        .map(ticketAttribute -> new TicketAttributeRecord(ticketAttribute.getAttribute(), ticketAttribute.getValue()))
+                        .collect(Collectors.toList())
+        );
     }
 
 }

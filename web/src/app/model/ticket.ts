@@ -1,24 +1,19 @@
+import {TicketAttribute} from "./ticket-attribute";
+
 export class Ticket {
+
     id: number;
 
     number: string;
 
-    title: string;
+    attributes: TicketAttribute[] = [];
 
-    assignee: string;
-
-    status: string;
-
-    comment: string;
-
-    sub: Ticket[] = [];
-
-    subVisible: boolean = false;
-
-    inProgress: boolean = true;
-
-    tracked: boolean = false;
-
-
+    static from(value): Ticket {
+        let ticket = new Ticket();
+        ticket.id = value.id;
+        ticket.number = value.number;
+        ticket.attributes = value.attributes.map(entry => TicketAttribute.from(entry));
+        return ticket;
+    }
 
 }

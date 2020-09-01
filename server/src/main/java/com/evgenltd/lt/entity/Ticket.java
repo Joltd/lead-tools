@@ -1,6 +1,11 @@
 package com.evgenltd.lt.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tickets")
@@ -11,6 +16,9 @@ public class Ticket {
     private Long id;
 
     private String number;
+
+    @OneToMany(mappedBy = "ticket", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<TicketAttribute> attributes = new HashSet<>();
 
     private String comment;
 
@@ -46,5 +54,13 @@ public class Ticket {
 
     public void setTracked(final Boolean tracked) {
         this.tracked = tracked;
+    }
+
+    public Set<TicketAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(final Set<TicketAttribute> attributes) {
+        this.attributes = attributes;
     }
 }

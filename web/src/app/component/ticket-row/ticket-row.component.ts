@@ -14,16 +14,9 @@ export class TicketRowComponent {
 
     constructor(private tickerService: TicketService) {}
 
-    saveComment() {
-        this.ticket.inProgress = true;
-        this.tickerService.updateComment(this.ticket.id, this.ticket.number, this.ticket.comment)
-            .subscribe(() => this.ticket.inProgress = false);
-    }
+    saveComment() {}
 
-    clearComment() {
-        this.ticket.comment = null;
-        this.saveComment();
-    }
+    clearComment() {}
 
     removeTicket(id: number) {
         this.tickerService.removeTicket(id).subscribe();

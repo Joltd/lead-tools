@@ -1,16 +1,17 @@
+<div>{{ticketService.dashboard.name}}</div>
+<!--<div class="btn-group">-->
+<!--    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>-->
+<!--    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>-->
+<!--    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>-->
+<!--    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>-->
+<!--</div>-->
 <div class="p-3">
     <div *ngFor="let ticket of ticketService.tickets">
         <ticket-row [ticket]="ticket"></ticket-row>
-        <div class="pl-3" *ngIf="ticket.subVisible">
-            <div *ngFor="let sub of ticket.sub">
-                <ticket-row [ticket]="sub"></ticket-row>
-            </div>
-        </div>
+<!--        <div class="pl-3" *ngIf="ticket.subVisible">-->
+<!--            <div *ngFor="let sub of ticket.sub">-->
+<!--                <ticket-row [ticket]="sub"></ticket-row>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
-<!--        <td>-->
-<!--            <a href="#" [routerLink]="['/channel/', channel.id, 'invocation', invocation.id]">{{invocation.date | date:'yyyy-MM-dd HH:mm'}}</a>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <status [status]="invocation.status"></status>-->
-<!--        </td>-->
