@@ -57,6 +57,7 @@ export class TicketHeaderComponent {
     }
 
     drop(event: CdkDragDrop<DashboardColumn[]>) {
+        this.columnReorderDisabled = false;
         if (event.previousIndex == event.currentIndex) {
             return;
         }
