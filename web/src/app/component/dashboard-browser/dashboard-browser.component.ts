@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Dashboard} from "../../model/dashboard";
 import {DashboardService} from "../../service/dashboard.service";
-import {TicketService} from "../../service/ticket.service";
 
 @Component({
     selector: 'dashboard-browser',
@@ -10,24 +9,16 @@ import {TicketService} from "../../service/ticket.service";
 })
 export class DashboardBrowserComponent implements OnInit {
 
-    dashboards: Dashboard[] = [];
-    current: Dashboard;
-
     editName: string;
 
-    constructor(private dashboardService: DashboardService) {}
+    constructor(public dashboardService: DashboardService) {}
 
     ngOnInit(): void {
         this.load();
     }
 
     load() {
-        this.dashboardService.load().subscribe(result => {
-            this.dashboards = result;
-            if (result.length > 0 && !this.current) {
-                this.current = result[0];
-            }
-        });
+        this.dashboardService.load().subscribe();
     }
 
     new() {
@@ -35,19 +26,17 @@ export class DashboardBrowserComponent implements OnInit {
         dashboard.name = 'New Dashboard';
         this.dashboardService.update(dashboard)
             .subscribe((result) => {
-                this.current = result;
+                this.dashboardService.current = result;
                 this.load();
             })
     }
 
     open(dashboard: Dashboard) {
-        this.current = dashboard;
-        // this.ticketService.dashboard = dashboard;
-        // this.ticketService.loadTickets().subscribe();
+        this.dashboardService.current = dashboard;
     }
 
     isCurrent(dashboard: Dashboard) {
-        return this.current && this.current.id == dashboard.id;
+        return this.dashboardService.current && this.dashboardService.current.id == dashboard.id;
     }
 
     getDashboardClass(dashboard: Dashboard) {
@@ -55,12 +44,12 @@ export class DashboardBrowserComponent implements OnInit {
     }
 
     startEditName() {
-        this.editName = this.current.name;
+        this.editName = this.dashboardService.current.name;
     }
 
     doneEditName() {
-        this.current.name = this.editName;
-        this.dashboardService.update(this.current).subscribe(() => {
+        this.dashboardService.current.name = this.editName;
+        this.dashboardService.update(this.dashboardService.current).subscribe(() => {
             this.load();
             this.cancelEdiName();
         })
@@ -71,9 +60,9 @@ export class DashboardBrowserComponent implements OnInit {
     }
 
     delete() {
-        this.dashboardService.delete(this.current.id)
+        this.dashboardService.delete(this.dashboardService.current.id)
             .subscribe(() => {
-                this.current = null;
+                this.dashboardService.current = null;
                 this.load();
             })
     }
@@ -81,4 +70,5 @@ export class DashboardBrowserComponent implements OnInit {
     search() {
 
     }
+
 }

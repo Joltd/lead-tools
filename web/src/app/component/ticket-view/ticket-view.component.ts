@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Ticket} from "../../model/ticket";
+import {TicketService} from "../../service/ticket.service";
 
 @Component({
     selector: 'ticket-view',
@@ -8,6 +8,8 @@ import {Ticket} from "../../model/ticket";
 })
 export class TicketViewComponent {
 
-    ticket: Ticket;
+    constructor(public ticketService: TicketService) {}
+
+
 
 }

@@ -1,14 +1,14 @@
 <div class="browser p-3">
     <div class="mb-3">
         <div class="btn-group">
-            <button *ngFor="let dashboard of this.dashboards" class="btn border" [class]="getDashboardClass(dashboard)" (click)="open(dashboard)">{{dashboard.name}}</button>
+            <button *ngFor="let dashboard of this.dashboardService.dashboards" class="btn border" [class]="getDashboardClass(dashboard)" (click)="open(dashboard)">{{dashboard.name}}</button>
             <button class="btn btn-light border" (click)="new()"><i class="material-icons">add</i></button>
         </div>
     </div>
 
-    <div *ngIf="current" class="current">
+    <div *ngIf="this.dashboardService.current" class="current">
         <div class="name mr-3">
-            <h3 (click)="startEditName()" *ngIf="!editName">{{current.name}}</h3>
+            <h3 (click)="startEditName()" *ngIf="!editName">{{this.dashboardService.current.name}}</h3>
             <div class="input-group w-25" *ngIf="editName">
                 <input type="text" class="form-control" [(ngModel)]="editName">
                 <div class="input-group-append">
@@ -38,3 +38,4 @@
     </div>
 
 </div>
+<ticket-browser></ticket-browser>

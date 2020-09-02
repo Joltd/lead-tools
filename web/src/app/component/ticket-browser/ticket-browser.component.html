@@ -1,19 +1,7 @@
-<!--<div>{{ticketService.dashboard.name}}</div>-->
-<!--&lt;!&ndash;<div class="btn-group">&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="btn btn-secondary ml-3" *ngIf="ticket.tracked" type="button" (click)="removeTicket(ticket.id)"><i class="material-icons">delete</i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--<div class="p-3">-->
-<!--    <div *ngFor="let ticket of ticketService.tickets">-->
-<!--        <ticket-row [ticket]="ticket"></ticket-row>-->
-<!--&lt;!&ndash;        <div class="pl-3" *ngIf="ticket.subVisible">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div *ngFor="let sub of ticket.sub">&ndash;&gt;-->
-<!--&lt;!&ndash;                <ticket-row [ticket]="sub"></ticket-row>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--    </div>-->
-<!--</div>-->
-
 <ticket-header></ticket-header>
+<div *ngFor="let ticket of ticketService.tickets">
+    <mat-card>
+        <div *ngFor="let attribute of ticket.attributes"></div>
+    </mat-card>
+    <ticket-view *ngIf="isCurrent(ticket)"></ticket-view>
+</div>

@@ -12,12 +12,12 @@ export class ToolbarComponent {
 
     constructor(public ticketService: TicketService) {}
 
-    addTicket() {
-        this.ticketService.trackTicket(this.number).subscribe();
-    }
-
-    reload() {
-        this.ticketService.loadTickets().subscribe();
-    }
+    // addTicket() {
+    //     this.ticketService.trackTicket(this.number).subscribe();
+    // }
+    //
+    // reload() {
+    //     this.ticketService.loadTickets().subscribe();
+    // }
 
 }

@@ -1,0 +1,14 @@
+<ng-container *ngIf="edit" [ngSwitch]="attribute.type">
+    <ng-template [ngSwitchCase]="'STRING'"></ng-template>
+    <ng-template [ngSwitchCase]="'TEXT'"></ng-template>
+    <ng-template [ngSwitchCase]="'NUMBER'"></ng-template>
+    <ng-template [ngSwitchCase]="'DATE'"></ng-template>
+    <ng-template [ngSwitchCase]="'BOOLEAN'"></ng-template>
+</ng-container>
+<ng-container *ngIf="!edit" [ngSwitch]="attribute.type">
+    <ng-template [ngSwitchCase]="'STRING'"></ng-template>
+    <ng-template [ngSwitchCase]="'TEXT'"></ng-template>
+    <ng-template [ngSwitchCase]="'NUMBER'"></ng-template>
+    <ng-template [ngSwitchCase]="'DATE'"></ng-template>
+    <ng-template [ngSwitchCase]="'BOOLEAN'"></ng-template>
+</ng-container>

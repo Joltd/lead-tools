@@ -27,10 +27,12 @@ import {MatListModule} from "@angular/material/list";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatCardModule} from "@angular/material/card";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {AttributeComponent} from "./component/attribute/attribute.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    AttributeComponent,
     AttributeBrowserComponent,
     AttributeViewComponent,
     DashboardBrowserComponent,
