@@ -50,6 +50,14 @@ public class TicketService {
         return true;
     }
 
+    public void update(final TicketRecord ticketRecord) {
+        final Ticket ticket = ticketRecord.id() != null
+                ? ticketRepository.getOne(ticketRecord.id())
+                : new Ticket();
+
+
+    }
+
 //    public JiraTicketRecord loadJiraTicket(final String number) {
 //        final Issue issue = client.getIssueClient().getIssue(number).claim();
 //        return toJiraTicketRecord(issue);
@@ -62,29 +70,29 @@ public class TicketService {
 //                .collect(Collectors.toList());
 //    }
 
-    public void trackTicket(final String number) {
-        final Issue issue = client.getIssueClient()
-                .getIssue(number)
-                .recover(error -> null)
-                .claim();
-
-        if (issue != null) {
-            final Ticket ticket = new Ticket();
-            ticket.setNumber(number);
-            ticket.setTracked(true);
-            ticketRepository.save(ticket);
-        }
-    }
-
-    public void updateComment(final Long id, final String number, final String comment) {
-        final Ticket ticket = Optional.ofNullable(id)
-                .flatMap(ticketRepository::findById)
-                .orElseGet(() -> ticketRepository.findByNumber(number).orElseGet(Ticket::new));
-
-        ticket.setNumber(number);
-        ticket.setComment(comment);
-        ticketRepository.save(ticket);
-    }
+//    public void trackTicket(final String number) {
+//        final Issue issue = client.getIssueClient()
+//                .getIssue(number)
+//                .recover(error -> null)
+//                .claim();
+//
+//        if (issue != null) {
+//            final Ticket ticket = new Ticket();
+//            ticket.setNumber(number);
+//            ticket.setTracked(true);
+//            ticketRepository.save(ticket);
+//        }
+//    }
+//
+//    public void updateComment(final Long id, final String number, final String comment) {
+//        final Ticket ticket = Optional.ofNullable(id)
+//                .flatMap(ticketRepository::findById)
+//                .orElseGet(() -> ticketRepository.findByNumber(number).orElseGet(Ticket::new));
+//
+//        ticket.setNumber(number);
+//        ticket.setComment(comment);
+//        ticketRepository.save(ticket);
+//    }
 
 //    private TicketRecord ticketToRecord(final String number) {
 //        final Ticket foundTicket = ticketRepository.findByNumber(number).orElseGet(() -> {

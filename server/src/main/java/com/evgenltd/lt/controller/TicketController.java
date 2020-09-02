@@ -41,12 +41,12 @@ public class TicketController {
 //        ticketService.updateComment(ticketRecord.id(), ticketRecord.number(), ticketRecord.comment());
 //        return new Response<>();
 //    }
-
-    @PostMapping("/track/{number}")
-    public Response<Void> trackTicket(@PathVariable("number") final String number) {
-        ticketService.trackTicket(number);
-        return new Response<>();
-    }
+//
+//    @PostMapping("/track/{number}")
+//    public Response<Void> trackTicket(@PathVariable("number") final String number) {
+//        ticketService.trackTicket(number);
+//        return new Response<>();
+//    }
 
     @DeleteMapping("/{id}")
     public Response<Void> remove(@PathVariable("id") final Long id) {
@@ -62,7 +62,6 @@ public class TicketController {
     private TicketRecord toRecord(final Ticket ticket) {
         return new TicketRecord(
                 ticket.getId(),
-                ticket.getNumber(),
                 ticket.getAttributes()
                         .stream()
                         .map(ticketAttribute -> new TicketAttributeRecord(ticketAttribute.getAttribute(), ticketAttribute.getValue()))

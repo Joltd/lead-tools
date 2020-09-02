@@ -17,6 +17,16 @@ import {DashboardBrowserComponent} from "./component/dashboard-browser/dashboard
 import {AttributeBrowserComponent} from "./component/attribute-browser/attribute-browser.component";
 import {AttributeViewComponent} from "./component/attribute-view/attribute-view.component";
 import {TicketViewComponent} from "./component/ticket-view/ticket-view.component";
+import {TicketHeaderComponent} from "./component/ticket-header/ticket-header.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatListModule} from "@angular/material/list";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatCardModule} from "@angular/material/card";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -25,17 +35,27 @@ import {TicketViewComponent} from "./component/ticket-view/ticket-view.component
     AttributeViewComponent,
     DashboardBrowserComponent,
     TicketBrowserComponent,
+    TicketHeaderComponent,
     TicketRowComponent,
     TicketViewComponent,
     StatusComponent,
     ToolbarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatListModule,
+        DragDropModule,
+        MatCardModule,
+        ScrollingModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

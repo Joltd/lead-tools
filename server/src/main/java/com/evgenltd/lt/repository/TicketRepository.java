@@ -8,10 +8,4 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TicketRepository extends JpaRepository<Ticket, Long> {
-
-    List<Ticket> findByTrackedIsTrue();
-
-    Optional<Ticket> findByNumber(String number);
-
-}
+public interface TicketRepository extends JpaRepository<Ticket, Long> {}
