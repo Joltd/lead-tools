@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Attribute} from "../../model/attribute";
 
 @Component({
@@ -13,6 +13,9 @@ export class AttributeComponent {
 
     @Input()
     value: string;
+
+    @Output()
+    onValue: EventEmitter<string> = new EventEmitter<string>();
 
     @Input()
     edit: boolean = false;

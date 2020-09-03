@@ -21,23 +21,6 @@ export class TicketHeaderComponent {
 
     constructor(private dashboardService: DashboardService) {}
 
-    getFullWidth(): number {
-        if (!this.dashboard || this.dashboard.columns.length == 0) {
-            return 0;
-        }
-        return this.dashboard.columns
-            .map(column => column.getFullWidth())
-            .reduce((prev, current) => prev + current);
-    }
-
-    isLastColumn(column: DashboardColumn): boolean {
-        if (this.dashboard.columns.length == 0) {
-            return true;
-        }
-
-        return this.dashboard.columns[this.dashboard.columns.length - 1] == column;
-    }
-
     drop(event: CdkDragDrop<DashboardColumn[]>) {
         this.columnReorderDisabled = false;
         if (event.previousIndex == event.currentIndex) {
@@ -49,7 +32,7 @@ export class TicketHeaderComponent {
         for (let index = 0; index < this.dashboard.columns.length; index++) {
             this.dashboard.columns[index].position = index;
         }
-        this.dashboardService.update(this.dashboard);
+        this.updateColumns();
     }
 
     order(column: DashboardColumn) {
@@ -60,7 +43,7 @@ export class TicketHeaderComponent {
         } else if (column.order == 'NONE') {
             column.order = 'ASC';
         }
-        this.dashboardService.update(this.dashboard);
+        this.updateColumns();
     }
 
     width(event, column: DashboardColumn) {

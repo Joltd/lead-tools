@@ -29,13 +29,13 @@ export class TicketService {
 
     update(ticket: Ticket): Observable<Ticket> {
         let toSave = ticket.toSave();
+        debugger
         return this.http.post(environment.apiUrl + TicketService.PATH, toSave)
             .pipe(map(result => Ticket.from(result)));
     }
 
     delete(id: number): Observable<void> {
-        return this.http.delete(environment.apiUrl + TicketService.PATH + '/' + id)
-            .pipe(() => null);
+        return this.http.delete<void>(environment.apiUrl + TicketService.PATH + '/' + id);
     }
 
 }

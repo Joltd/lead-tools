@@ -31,42 +31,27 @@ public class TicketController {
     public Response<List<TicketRecord>> list(@RequestParam("dashboard") final Long dashboardId) {
         final List<TicketRecord> result = ticketService.loadByDashboard(dashboardId)
                 .stream()
-                .map(this::toRecord)
+                .map(TicketRecord::from)
                 .collect(Collectors.toList());
         return new Response<>(result);
     }
-//
-//    @PostMapping("/comment")
-//    public Response<Void> updateComment(@RequestBody final TicketRecord ticketRecord) {
-//        ticketService.updateComment(ticketRecord.id(), ticketRecord.number(), ticketRecord.comment());
-//        return new Response<>();
-//    }
-//
-//    @PostMapping("/track/{number}")
-//    public Response<Void> trackTicket(@PathVariable("number") final String number) {
-//        ticketService.trackTicket(number);
-//        return new Response<>();
-//    }
+
+    @GetMapping("/{id}")
+    public Response<TicketRecord> loadById(@PathVariable("id") final Long id) {
+        return new Response<>(TicketRecord.from(ticketRepository.getOne(id)));
+    }
+
+    @PostMapping
+    public Response<TicketRecord> update(@RequestBody final TicketRecord ticketRecord) {
+        final Ticket ticket = ticketRecord.toEntity();
+        final Ticket result = ticketRepository.save(ticket);
+        return new Response<>(TicketRecord.from(result));
+    }
 
     @DeleteMapping("/{id}")
     public Response<Void> remove(@PathVariable("id") final Long id) {
         ticketRepository.deleteById(id);
         return new Response<>();
-    }
-
-//    @GetMapping("/jira/{number}")
-//    public Response<JiraTicketRecord> jira(@PathVariable("number") final String number) {
-//        return new Response<>(ticketService.loadJiraTicket(number));
-//    }
-
-    private TicketRecord toRecord(final Ticket ticket) {
-        return new TicketRecord(
-                ticket.getId(),
-                ticket.getAttributes()
-                        .stream()
-                        .map(ticketAttribute -> new TicketAttributeRecord(ticketAttribute.getAttribute(), ticketAttribute.getValue()))
-                        .collect(Collectors.toList())
-        );
     }
 
 }

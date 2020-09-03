@@ -1,3 +1,22 @@
-<!--<div *ngFor="let attribute of ticketService.current.attributes">-->
-<!--    <attribute [attribute]="attribute.attribute" [value]="attribute.value" edit></attribute>-->
-<!--</div>-->
+<div mat-dialog-content class="content">
+    <div class="attributes">
+        <div *ngFor="let attribute of ticket.attributes">
+            <attribute [attribute]="attribute.attribute" [value]="attribute.value" (onValue)="attribute.value = $event" [edit]="true"></attribute>
+            <button mat-button (click)="delete(attribute)"><mat-icon>delete</mat-icon></button>
+        </div>
+    </div>
+    <div *ngIf="hasAllowedAttributes() | async">
+        <mat-form-field>
+            <mat-label>Add attribute</mat-label>
+            <input type="text" matInput [matAutocomplete]="autocomplete" [formControl]="attributeControl">
+            <mat-autocomplete #autocomplete="matAutocomplete" [displayWith]="displayFunction">
+                <mat-option *ngFor="let attribute of filteredAttributes | async" [value]="attribute">{{attribute.name}}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <button mat-button (click)="add()" [disabled]="!attributeControl.value"><mat-icon>add</mat-icon></button>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="save()" cdkFocusInitial>OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+</div>

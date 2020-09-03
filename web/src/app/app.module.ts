@@ -5,10 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {TicketBrowserComponent} from "./component/ticket-browser/ticket-browser.component";
 import {TicketService} from "./service/ticket.service";
-import {TicketRowComponent} from "./component/ticket-row/ticket-row.component";
 import {ApiInterceptor} from "./service/api-interceptor.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {StatusComponent} from "./component/status/status.component";
 import {ToolbarComponent} from "./component/toolbar/toolbar.component";
 import {AttributeService} from "./service/attribute.service";
@@ -34,7 +33,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatTabsModule} from "@angular/material/tabs";
 import {DashboardViewComponent} from "./component/dashboard-view/dashboard-view.component";
-import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
     declarations: [
@@ -46,7 +46,6 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
         DashboardViewComponent,
         TicketBrowserComponent,
         TicketHeaderComponent,
-        TicketRowComponent,
         TicketViewComponent,
         StatusComponent,
         ToolbarComponent
@@ -70,7 +69,9 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
         MatCheckboxModule,
         MatChipsModule,
         MatTabsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule
     ],
     providers: [
         {

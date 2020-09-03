@@ -11,37 +11,37 @@
     <ng-template [ngSwitchCase]="'STRING'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>
-            <input matInput [(ngModel)]="value">
+            <input matInput [ngModel]="value" (ngModelChange)="onValue.emit($event)">
         </mat-form-field>
     </ng-template>
     <ng-template [ngSwitchCase]="'TEXT'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>
-            <textarea matInput [(ngModel)]="value"></textarea>
+            <textarea matInput [ngModel]="value" (ngModelChange)="onValue.emit($event)"></textarea>
         </mat-form-field>
     </ng-template>
     <ng-template [ngSwitchCase]="'NUMBER'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>
-            <input type="number" matInput [(ngModel)]="value">
+            <input type="number" matInput [ngModel]="value" (ngModelChange)="onValue.emit($event)">
         </mat-form-field>
     </ng-template>
     <ng-template [ngSwitchCase]="'DATE'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>
-            <input type="date" matInput [(ngModel)]="value">
+            <input type="date" matInput [ngModel]="value" (ngModelChange)="onValue.emit($event)">
         </mat-form-field>
     </ng-template>
     <ng-template [ngSwitchCase]="'DATETIME'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>
-            <input type="datetime-local" matInput [(ngModel)]="value">
+            <input type="datetime-local" matInput [ngModel]="value" (ngModelChange)="onValue.emit($event)">
         </mat-form-field>
     </ng-template>
     <ng-template [ngSwitchCase]="'BOOLEAN'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>
-            <input type="checkbox" matInput [(ngModel)]="value">
+            <input type="checkbox" matInput [ngModel]="value" (ngModelChange)="onValue.emit($event)">
         </mat-form-field>
     </ng-template>
 </ng-container>
