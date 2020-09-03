@@ -35,6 +35,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {DashboardViewComponent} from "./component/dashboard-view/dashboard-view.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -71,7 +72,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
         MatTabsModule,
         MatDialogModule,
         MatAutocompleteModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSelectModule
     ],
     providers: [
         {

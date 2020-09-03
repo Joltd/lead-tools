@@ -1,11 +1,13 @@
 package com.evgenltd.lt.controller;
 
 import com.evgenltd.lt.entity.Attribute;
+import com.evgenltd.lt.record.AttributeRecord;
 import com.evgenltd.lt.repository.AttributeRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/attribute")
@@ -18,13 +20,24 @@ public class AttributeController {
     }
 
     @GetMapping
-    public Response<List<Attribute>> list() {
-        return new Response<>(attributeRepository.findAll(Sort.by("name")));
+    public Response<List<AttributeRecord>> list() {
+        final List<AttributeRecord> result = attributeRepository.findAll(Sort.by("name"))
+                .stream()
+                .map(AttributeRecord::from)
+                .collect(Collectors.toList());
+        return new Response<>(result);
+    }
+
+    @GetMapping("{id}")
+    public Response<AttributeRecord> loadById(@PathVariable("id") final Long id) {
+        return new Response<>(AttributeRecord.from(attributeRepository.getOne(id)));
     }
 
     @PostMapping
-    public Response<Attribute> update(@RequestBody final Attribute attribute) {
-        return new Response<>(attributeRepository.save(attribute));
+    public Response<AttributeRecord> update(@RequestBody final AttributeRecord attributeRecord) {
+        final Attribute attribute = attributeRecord.toEntity();
+        final Attribute result = attributeRepository.save(attribute);
+        return new Response<>(AttributeRecord.from(result));
     }
 
     @DeleteMapping("/{id}")

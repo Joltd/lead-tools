@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public record TicketAttributeRecord(
         Long id,
-        Attribute attribute,
+        AttributeRecord attribute,
         String value
 ) {
 
     public static TicketAttributeRecord from(final TicketAttribute ticketAttribute) {
         return new TicketAttributeRecord(
                 ticketAttribute.getId(),
-                ticketAttribute.getAttribute(),
+                AttributeRecord.from(ticketAttribute.getAttribute()),
                 ticketAttribute.getValue()
         );
     }
@@ -22,7 +22,7 @@ public record TicketAttributeRecord(
     public TicketAttribute toEntity() {
         final TicketAttribute ticketAttribute = new TicketAttribute();
         ticketAttribute.setId(id());
-        ticketAttribute.setAttribute(attribute());
+        ticketAttribute.setAttribute(attribute().toEntity());
         ticketAttribute.setValue(value());
         return ticketAttribute;
     }

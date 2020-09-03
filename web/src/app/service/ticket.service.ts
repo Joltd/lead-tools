@@ -29,7 +29,6 @@ export class TicketService {
 
     update(ticket: Ticket): Observable<Ticket> {
         let toSave = ticket.toSave();
-        debugger
         return this.http.post(environment.apiUrl + TicketService.PATH, toSave)
             .pipe(map(result => Ticket.from(result)));
     }

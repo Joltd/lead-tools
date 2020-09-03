@@ -96,6 +96,11 @@ export class TicketViewComponent implements OnInit {
         this.attributeControl.reset();
     }
 
+    deleteTicket() {
+        this.ticketService.delete(this.ticket.id)
+            .subscribe(() => this.dialogRef.close(true));
+    }
+
 }
 
 export class TicketViewData {

@@ -5,14 +5,18 @@
 <mat-sidenav-container class="mat-sidenav-container">
     <mat-sidenav #side mode="side" position="start" opened class="mat-sidenav mat-elevation-z8">
         <mat-nav-list>
-            <mat-list-item>
-                <mat-icon matListIcon>dashboard</mat-icon>
-                <a matLine routerLink="/attribute">Attributes</a>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-icon matListIcon>dashboard</mat-icon>
-                <a matLine routerLink="/dashboard">Dashboards</a>
-            </mat-list-item>
+            <a matLine routerLink="/attribute">
+                <mat-list-item>
+                    <mat-icon matListIcon>edit_attributes</mat-icon>
+                    <span>Attributes</span>
+                </mat-list-item>
+            </a>
+            <a matLine routerLink="/dashboard">
+                <mat-list-item>
+                    <mat-icon matListIcon>dashboard</mat-icon>
+                    <span>Dashboards</span>
+                </mat-list-item>
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -18,7 +18,7 @@ export class TicketBrowserComponent implements OnInit {
 
     tickets: Ticket[] = [];
 
-    constructor(private ticketService: TicketService, private matDialog: MatDialog) {}
+    constructor(private ticketService: TicketService, private dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.load();
@@ -37,34 +37,19 @@ export class TicketBrowserComponent implements OnInit {
         for (let ticket of this.tickets) {
             ticket.reorder(this.dashboard);
         }
-        // this.load();
     }
 
     getColumnWidth(ticketAttribute: TicketAttribute): number {
         return this.dashboard.get(ticketAttribute.attribute).getFullWidth();
     }
 
-    add() {
-        let dialogRef = this.matDialog.open(TicketViewComponent, {data: new TicketViewData(this.dashboard, new Ticket())});
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.load();
-            }
-        });
-    }
-
     edit(ticket: Ticket) {
-        let dialogRef = this.matDialog.open(TicketViewComponent, {data: new TicketViewData(this.dashboard, ticket)});
+        let dialogRef = this.dialog.open(TicketViewComponent, {data: new TicketViewData(this.dashboard, ticket)});
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.load();
             }
         });
-    }
-
-    delete(ticket: Ticket) {
-        this.ticketService.delete(ticket.id)
-            .subscribe(() => this.load());
     }
 
 }

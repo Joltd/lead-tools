@@ -61,6 +61,6 @@ export class TicketHeaderComponent {
     }
 
     private updateColumns() {
-        this.dashboardService.update(this.dashboard).subscribe();
+        this.dashboardService.update(this.dashboard).subscribe(() => this.headerChanged.emit());
     }
 }

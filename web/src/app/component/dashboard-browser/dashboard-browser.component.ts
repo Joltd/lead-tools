@@ -3,6 +3,8 @@ import {Dashboard} from "../../model/dashboard";
 import {DashboardService} from "../../service/dashboard.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DashboardViewComponent} from "../dashboard-view/dashboard-view.component";
+import {TicketViewComponent, TicketViewData} from "../ticket-view/ticket-view.component";
+import {Ticket} from "../../model/ticket";
 
 @Component({
     selector: 'dashboard-browser',
@@ -24,10 +26,14 @@ export class DashboardBrowserComponent implements OnInit {
             .subscribe(result => this.dashboards = result);
     }
 
-    new() {
+    add() {
         let dialogRef = this.dialog.open(DashboardViewComponent);
         dialogRef.afterClosed()
-            .subscribe(() => this.load());
+            .subscribe((result) => {
+                if (result) {
+                    this.load();
+                }
+            });
     }
 
     edit(dashboard: Dashboard) {
@@ -35,9 +41,18 @@ export class DashboardBrowserComponent implements OnInit {
         dialogRef.afterClosed()
             .subscribe((result) => {
                 if (result) {
-                    this.load()
+                    this.load();
                 }
             });
     }
 
+    addTicket(dashboard: Dashboard) {
+        let dialogRef = this.dialog.open(TicketViewComponent, {data: new TicketViewData(dashboard, new Ticket())});
+        dialogRef.afterClosed()
+            .subscribe(result => {
+            if (result) {
+                this.load();
+            }
+        });
+    }
 }

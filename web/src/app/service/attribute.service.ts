@@ -17,6 +17,11 @@ export class AttributeService {
             .pipe(map(result => result.map(entry => Attribute.from(entry))));
     }
 
+    loadById(id: number): Observable<Attribute> {
+        return this.http.get<any>(environment.apiUrl + AttributeService.PATH + '/' + id)
+            .pipe(map(result => Attribute.from(result)));
+    }
+
     update(attribute: Attribute): Observable<Attribute> {
         return this.http.post<any>(environment.apiUrl + AttributeService.PATH, attribute.toSave())
             .pipe(map(result => Attribute.from(result)))

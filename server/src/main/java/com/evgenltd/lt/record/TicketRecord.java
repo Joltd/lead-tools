@@ -19,7 +19,7 @@ public record TicketRecord(
                 ticket.getAttributes()
                         .stream()
                         .map(TicketAttributeRecord::from)
-                        .sorted(Comparator.comparing(o -> o.attribute().getName()))
+                        .sorted(Comparator.comparing(o -> o.attribute().name()))
                         .collect(Collectors.toList())
         );
     }

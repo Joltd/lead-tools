@@ -17,6 +17,7 @@
     </div>
 </div>
 <div mat-dialog-actions>
+    <button mat-button (click)="deleteTicket()" *ngIf="ticket.id"><mat-icon>delete</mat-icon></button>
     <button mat-button (click)="save()" cdkFocusInitial>OK</button>
     <button mat-button (click)="cancel()">Cancel</button>
 </div>

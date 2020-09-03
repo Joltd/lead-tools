@@ -61,7 +61,6 @@ export class DashboardViewComponent implements OnInit {
 
     save() {
         this.dashboard.columns.sort((left, right) => left.position - right.position);
-        debugger
         for (let index = 0; index < this.dashboard.columns.length; index++){
             let column = this.dashboard.columns[index];
             column.position = index;

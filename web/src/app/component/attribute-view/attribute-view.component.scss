@@ -1,10 +1,6 @@
-.view {
-  display: grid;
-  grid-template-columns: 200px minmax(300px, min-content);
-  grid-gap: 1rem;
-  align-items: center;
-
-  #readonly {
-    width: 1em;
-  }
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 20vh;
+  min-width: 10vw;
 }

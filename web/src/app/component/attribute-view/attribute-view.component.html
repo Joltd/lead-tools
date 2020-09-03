@@ -1,16 +1,18 @@
-<div class="view border rounded p-2 m-2 shadow-sm">
-    <label for="name">Name</label>
-    <div class="input-group">
-        <input id="name" type="text" class="form-control " placeholder="Name"  [(ngModel)]="attribute.name">
-    </div>
-
-    <label for="type">Type</label>
-    <div class="input-group">
-        <select class="custom-select" id="type" [(ngModel)]="attribute.type">
-            <option *ngFor="let type of types" [ngValue]="type" [selected]="type == attribute.type">{{type}}</option>
-        </select>
-    </div>
-
-    <label for="readonly">Readonly</label>
-    <input id="readonly" type="checkbox" class="form-control" [(ngModel)]="attribute.readonly">
+<div mat-dialog-content class="content">
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="attribute.name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Type</mat-label>
+        <mat-select [(ngModel)]="attribute.type">
+            <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="attribute.readonly">Readonly</mat-checkbox>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="delete()" *ngIf="attribute.id"><mat-icon>delete</mat-icon></button>
+    <button mat-button (click)="save()" cdkFocusInitial>OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
 </div>
