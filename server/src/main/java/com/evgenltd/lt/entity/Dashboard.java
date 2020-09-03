@@ -19,14 +19,8 @@ public class Dashboard {
 
     private String query;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(
-            name = "dashboard_columns",
-            joinColumns = {@JoinColumn(name = "dashboard_id")},
-            inverseJoinColumns = {@JoinColumn(name = "attribute_id")}
-    )
-    private Set<Attribute> columns = new HashSet<>();
+    @OneToMany(mappedBy = "dashboard", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<DashboardColumn> columns = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -52,12 +46,11 @@ public class Dashboard {
         this.query = query;
     }
 
-    public Set<Attribute> getColumns() {
+    public Set<DashboardColumn> getColumns() {
         return columns;
     }
 
-    public void setColumns(final Set<Attribute> columns) {
+    public void setColumns(final Set<DashboardColumn> columns) {
         this.columns = columns;
     }
-
 }

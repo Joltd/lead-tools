@@ -1,14 +1,47 @@
-<ng-container *ngIf="edit" [ngSwitch]="attribute.type">
-    <ng-template [ngSwitchCase]="'STRING'"></ng-template>
-    <ng-template [ngSwitchCase]="'TEXT'"></ng-template>
-    <ng-template [ngSwitchCase]="'NUMBER'"></ng-template>
-    <ng-template [ngSwitchCase]="'DATE'"></ng-template>
-    <ng-template [ngSwitchCase]="'BOOLEAN'"></ng-template>
-</ng-container>
 <ng-container *ngIf="!edit" [ngSwitch]="attribute.type">
-    <ng-template [ngSwitchCase]="'STRING'"></ng-template>
-    <ng-template [ngSwitchCase]="'TEXT'"></ng-template>
-    <ng-template [ngSwitchCase]="'NUMBER'"></ng-template>
-    <ng-template [ngSwitchCase]="'DATE'"></ng-template>
-    <ng-template [ngSwitchCase]="'BOOLEAN'"></ng-template>
+    <ng-template [ngSwitchCase]="'STRING'">{{value}}</ng-template>
+    <ng-template [ngSwitchCase]="'TEXT'">{{value}}</ng-template>
+    <ng-template [ngSwitchCase]="'NUMBER'">{{value}}</ng-template>
+    <ng-template [ngSwitchCase]="'DATE'">{{value}}</ng-template>
+    <ng-template [ngSwitchCase]="'BOOLEAN'">
+        <mat-checkbox disabled [ngModel]="value == 'true'"></mat-checkbox>
+    </ng-template>
+</ng-container>
+<ng-container *ngIf="edit" [ngSwitch]="attribute.type">
+    <ng-template [ngSwitchCase]="'STRING'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{attribute.name}}</mat-label>
+            <input matInput [(ngModel)]="value">
+        </mat-form-field>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'TEXT'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{attribute.name}}</mat-label>
+            <textarea matInput [(ngModel)]="value"></textarea>
+        </mat-form-field>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'NUMBER'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{attribute.name}}</mat-label>
+            <input type="number" matInput [(ngModel)]="value">
+        </mat-form-field>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'DATE'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{attribute.name}}</mat-label>
+            <input type="date" matInput [(ngModel)]="value">
+        </mat-form-field>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'DATETIME'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{attribute.name}}</mat-label>
+            <input type="datetime-local" matInput [(ngModel)]="value">
+        </mat-form-field>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'BOOLEAN'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{attribute.name}}</mat-label>
+            <input type="checkbox" matInput [(ngModel)]="value">
+        </mat-form-field>
+    </ng-template>
 </ng-container>

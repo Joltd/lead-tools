@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {DashboardColumn} from "../../model/dashboard-column";
-import {Attribute} from "../../model/attribute";
-import {CdkDrag, CdkDragDrop} from "@angular/cdk/drag-drop";
+import {CdkDragDrop} from "@angular/cdk/drag-drop";
+import {DashboardService} from "../../service/dashboard.service";
+import {Dashboard} from "../../model/dashboard";
 
 @Component({
     selector: 'ticket-header',
@@ -10,50 +11,31 @@ import {CdkDrag, CdkDragDrop} from "@angular/cdk/drag-drop";
 })
 export class TicketHeaderComponent {
 
-    columns: DashboardColumn[] = [];
+    @Input()
+    dashboard: Dashboard;
+
+    @Output()
+    headerChanged: EventEmitter<void> = new EventEmitter<void>();
+
     columnReorderDisabled: boolean = false;
 
-    constructor() {
-        this.columns = [
-            DashboardColumn.from({
-                attribute: Attribute.from({id: 1, name: 'Number', type: 'STRING'}),
-                order: 'NONE',
-                position: 0,
-                width: 700
-            }),
-            DashboardColumn.from({
-                attribute: Attribute.from({id: 2, name: 'Title', type: 'STRING'}),
-                order: 'NONE',
-                position: 1,
-                width: 500
-            }),
-            DashboardColumn.from({
-                attribute: Attribute.from({id: 3, name: 'Date', type: 'DATE'}),
-                order: 'NONE',
-                position: 2,
-                width: 700
-            }),
-            DashboardColumn.from({
-                attribute: Attribute.from({id: 4, name: 'Priority', type: 'NUMBER'}),
-                order: 'NONE',
-                position: 3,
-                width: 400
-            })
-        ];
-    }
+    constructor(private dashboardService: DashboardService) {}
 
-    getFullWidth() {
-        return this.columns
+    getFullWidth(): number {
+        if (!this.dashboard || this.dashboard.columns.length == 0) {
+            return 0;
+        }
+        return this.dashboard.columns
             .map(column => column.getFullWidth())
             .reduce((prev, current) => prev + current);
     }
 
-    isLastColumn(column: DashboardColumn) {
-        if (this.columns.length == 0) {
+    isLastColumn(column: DashboardColumn): boolean {
+        if (this.dashboard.columns.length == 0) {
             return true;
         }
 
-        return this.columns[this.columns.length - 1] == column;
+        return this.dashboard.columns[this.dashboard.columns.length - 1] == column;
     }
 
     drop(event: CdkDragDrop<DashboardColumn[]>) {
@@ -61,12 +43,13 @@ export class TicketHeaderComponent {
         if (event.previousIndex == event.currentIndex) {
             return;
         }
-        let column = this.columns[event.previousIndex];
-        this.columns.splice(event.previousIndex, 1);
-        this.columns.splice(event.currentIndex, 0, column);
-        for (let index = 0; index < this.columns.length; index++) {
-            this.columns[index].position = index;
+        let column = this.dashboard.columns[event.previousIndex];
+        this.dashboard.columns.splice(event.previousIndex, 1);
+        this.dashboard.columns.splice(event.currentIndex, 0, column);
+        for (let index = 0; index < this.dashboard.columns.length; index++) {
+            this.dashboard.columns[index].position = index;
         }
+        this.dashboardService.update(this.dashboard);
     }
 
     order(column: DashboardColumn) {
@@ -77,6 +60,7 @@ export class TicketHeaderComponent {
         } else if (column.order == 'NONE') {
             column.order = 'ASC';
         }
+        this.dashboardService.update(this.dashboard);
     }
 
     width(event, column: DashboardColumn) {
@@ -90,6 +74,10 @@ export class TicketHeaderComponent {
     widthDone(column: DashboardColumn) {
         column.width = column.width + column.widthDelta;
         column.widthDelta = 0;
+        this.updateColumns();
     }
 
+    private updateColumns() {
+        this.dashboardService.update(this.dashboard).subscribe();
+    }
 }

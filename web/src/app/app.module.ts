@@ -28,21 +28,29 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatCardModule} from "@angular/material/card";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {AttributeComponent} from "./component/attribute/attribute.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatTabsModule} from "@angular/material/tabs";
+import {DashboardViewComponent} from "./component/dashboard-view/dashboard-view.component";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AttributeComponent,
-    AttributeBrowserComponent,
-    AttributeViewComponent,
-    DashboardBrowserComponent,
-    TicketBrowserComponent,
-    TicketHeaderComponent,
-    TicketRowComponent,
-    TicketViewComponent,
-    StatusComponent,
-    ToolbarComponent
-  ],
+    declarations: [
+        AppComponent,
+        AttributeComponent,
+        AttributeBrowserComponent,
+        AttributeViewComponent,
+        DashboardBrowserComponent,
+        DashboardViewComponent,
+        TicketBrowserComponent,
+        TicketHeaderComponent,
+        TicketRowComponent,
+        TicketViewComponent,
+        StatusComponent,
+        ToolbarComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -56,18 +64,24 @@ import {AttributeComponent} from "./component/attribute/attribute.component";
         MatListModule,
         DragDropModule,
         MatCardModule,
-        ScrollingModule
+        ScrollingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatTabsModule,
+        MatDialogModule
     ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
-      multi: true
-    },
-    AttributeService,
-    DashboardService,
-    TicketService
-  ],
-  bootstrap: [AppComponent]
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ApiInterceptor,
+            multi: true
+        },
+        AttributeService,
+        DashboardService,
+        TicketService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

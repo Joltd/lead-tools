@@ -1,9 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar">
     <button mat-icon-button (click)="side.toggle()"><mat-icon>menu</mat-icon></button>
     <span>Lead Tools</span>
 </mat-toolbar>
 <mat-sidenav-container class="mat-sidenav-container">
-    <mat-sidenav #side mode="side" opened class="mat-sidenav mat-elevation-z8">
+    <mat-sidenav #side mode="side" position="start" opened class="mat-sidenav mat-elevation-z8">
         <mat-nav-list>
             <mat-list-item>
                 <mat-icon matListIcon>dashboard</mat-icon>

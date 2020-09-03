@@ -1,7 +1,6 @@
-<ticket-header></ticket-header>
-<div *ngFor="let ticket of ticketService.tickets">
+<ticket-header [dashboard]="dashboard" (headerChanged)="onHeaderChanged()"></ticket-header>
+<div *ngFor="let ticket of tickets">
     <mat-card>
-        <div *ngFor="let attribute of ticket.attributes"></div>
+        <attribute [attribute]="attribute.attribute" [value]="attribute.value" *ngFor="let attribute of ticket.attributes"></attribute>
     </mat-card>
-    <ticket-view *ngIf="isCurrent(ticket)"></ticket-view>
 </div>

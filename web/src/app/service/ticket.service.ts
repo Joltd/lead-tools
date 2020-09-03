@@ -14,43 +14,23 @@ export class TicketService {
 
     private static readonly PATH = '/ticket';
 
-    private _tickets: Ticket[] = [];
-    private _current: Ticket
+    constructor(private http: HttpClient) {}
 
-    constructor(
-        private http: HttpClient,
-        private dashboardService: DashboardService
-    ) {}
-
-    get tickets(): Ticket[] {
-        return this._tickets;
-    }
-
-    get current(): Ticket {
-        return this._current;
-    }
-
-    set current(value: Ticket) {
-        this._current = value;
-    }
-
-    load(): Observable<Ticket[]> {
-        let dashboard = this.dashboardService.current;
-        let params = new HttpParams();
-        params.append('dashboard', dashboard.id.toString());
+    load(dashboard: Dashboard): Observable<Ticket[]> {
+        let params = new HttpParams().append('dashboard', dashboard.id.toString());
         return this.http.get<any[]>(environment.apiUrl + TicketService.PATH, {params})
-            .pipe(map(result => this._tickets = result.map(entry => Ticket.from(entry))))
+            .pipe(map(result => result.map(entry => Ticket.from(entry))))
     }
 
     loadById(id: number): Observable<Ticket> {
         return this.http.get<any>(environment.apiUrl + TicketService.PATH + '/' + id)
-            .pipe(map(result => this._current = Ticket.from(result)));
+            .pipe(map(result => Ticket.from(result)));
     }
 
-    update(): Observable<Ticket> {
-        let toSave = this._current.toSave();
+    update(ticket: Ticket): Observable<Ticket> {
+        let toSave = ticket.toSave();
         return this.http.post(environment.apiUrl + TicketService.PATH, toSave)
-            .pipe(map(result => this._current = Ticket.from(result)));
+            .pipe(map(result => Ticket.from(result)));
     }
 
     delete(id: number): Observable<void> {

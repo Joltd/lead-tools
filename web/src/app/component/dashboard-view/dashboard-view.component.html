@@ -1,0 +1,14 @@
+<div mat-dialog-content class="content">
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="dashboard.name">
+    </mat-form-field>
+    <mat-selection-list [(ngModel)]="dashboard.columns" [compareWith]="compareFunction" class="attributes">
+        <mat-list-option *ngFor="let attribute of allowedColumns" [value]="attribute">{{attribute.attribute.name}}</mat-list-option>
+    </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="delete()" *ngIf="dashboard.id"><mat-icon>delete</mat-icon></button>
+    <button mat-button (click)="save()" cdkFocusInitial>OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+</div>

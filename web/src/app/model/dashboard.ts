@@ -1,3 +1,5 @@
+import {DashboardColumn} from "./dashboard-column";
+
 export class Dashboard {
     id: number;
 
@@ -5,14 +7,14 @@ export class Dashboard {
 
     query: string;
 
-    attributes: number[] = [];
+    columns: DashboardColumn[] = [];
 
     static from(value: any): Dashboard {
         let attribute = new Dashboard();
         attribute.id = value.id;
         attribute.name = value.name;
         attribute.query = value.query;
-        attribute.attributes = value.attributes;
+        attribute.columns = value.columns.map(entry => DashboardColumn.from(entry));
         return attribute;
     }
 
@@ -21,7 +23,8 @@ export class Dashboard {
             id: this.id,
             name: this.name,
             query: this.query,
-            attributes: this.attributes
+            columns: this.columns.map(column => column.toSave())
         };
     }
+
 }

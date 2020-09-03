@@ -28,7 +28,7 @@ public class TicketController {
     }
 
     @GetMapping
-    public Response<List<TicketRecord>> list(@QueryParam("dashboard") final Long dashboardId) {
+    public Response<List<TicketRecord>> list(@RequestParam("dashboard") final Long dashboardId) {
         final List<TicketRecord> result = ticketService.loadByDashboard(dashboardId)
                 .stream()
                 .map(this::toRecord)

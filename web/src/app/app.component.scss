@@ -1,8 +1,8 @@
-.mat-sidenav {
-  width: 200px;
+:host {
   height: 100%;
+  width: 100%;
 }
 
 .mat-sidenav-container {
-  height: 100vh;
+  height: calc(100% - 64px);
 }

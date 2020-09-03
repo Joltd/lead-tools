@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {Dashboard} from "../../model/dashboard";
 import {DashboardService} from "../../service/dashboard.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DashboardViewComponent} from "../dashboard-view/dashboard-view.component";
 
 @Component({
     selector: 'dashboard-browser',
@@ -9,66 +11,33 @@ import {DashboardService} from "../../service/dashboard.service";
 })
 export class DashboardBrowserComponent implements OnInit {
 
-    editName: string;
+    dashboards: Dashboard[] = [];
 
-    constructor(public dashboardService: DashboardService) {}
+    constructor(public dashboardService: DashboardService, public dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.load();
     }
 
     load() {
-        this.dashboardService.load().subscribe();
+        this.dashboardService.load()
+            .subscribe(result => this.dashboards = result);
     }
 
     new() {
-        let dashboard = new Dashboard();
-        dashboard.name = 'New Dashboard';
-        this.dashboardService.update(dashboard)
+        let dialogRef = this.dialog.open(DashboardViewComponent);
+        dialogRef.afterClosed()
+            .subscribe(() => this.load());
+    }
+
+    edit(dashboard: Dashboard) {
+        let dialogRef = this.dialog.open(DashboardViewComponent, {data: dashboard.id});
+        dialogRef.afterClosed()
             .subscribe((result) => {
-                this.dashboardService.current = result;
-                this.load();
-            })
-    }
-
-    open(dashboard: Dashboard) {
-        this.dashboardService.current = dashboard;
-    }
-
-    isCurrent(dashboard: Dashboard) {
-        return this.dashboardService.current && this.dashboardService.current.id == dashboard.id;
-    }
-
-    getDashboardClass(dashboard: Dashboard) {
-        return this.isCurrent(dashboard) ? 'btn-primary' : 'btn-light';
-    }
-
-    startEditName() {
-        this.editName = this.dashboardService.current.name;
-    }
-
-    doneEditName() {
-        this.dashboardService.current.name = this.editName;
-        this.dashboardService.update(this.dashboardService.current).subscribe(() => {
-            this.load();
-            this.cancelEdiName();
-        })
-    }
-
-    cancelEdiName() {
-        this.editName = null;
-    }
-
-    delete() {
-        this.dashboardService.delete(this.dashboardService.current.id)
-            .subscribe(() => {
-                this.dashboardService.current = null;
-                this.load();
-            })
-    }
-
-    search() {
-
+                if (result) {
+                    this.load()
+                }
+            });
     }
 
 }

@@ -11,32 +11,16 @@ export class DashboardService {
 
     private static readonly PATH = '/dashboard';
 
-    private _dashboards: Dashboard[] = [];
-    private _current: Dashboard;
-
     constructor(private http: HttpClient) {}
-
-    get dashboards(): Dashboard[] {
-        return this._dashboards;
-    }
-
-    get current(): Dashboard {
-        return this._current;
-    }
-
-    set current(value: Dashboard) {
-        this._current = value;
-    }
 
     load(): Observable<Dashboard[]> {
         return this.http.get<any[]>(environment.apiUrl + DashboardService.PATH)
-            .pipe(map(result => {
-                this._dashboards = result.map(entry => Dashboard.from(entry));
-                if (this._dashboards.length > 0 && !this._current) {
-                    this._current = this._dashboards[0];
-                }
-                return this._dashboards;
-            }));
+            .pipe(map(result => result.map(entry => Dashboard.from(entry))));
+    }
+
+    loadById(id: number): Observable<Dashboard> {
+        return this.http.get<any>(environment.apiUrl + DashboardService.PATH + '/' + id)
+            .pipe(map(result => Dashboard.from(result)));
     }
 
     update(dashboard: Dashboard): Observable<Dashboard> {
