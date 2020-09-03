@@ -18,6 +18,10 @@ import java.net.URI;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
+    // todo sorting
+    // todo query
+    // todo checking for other types
+
     @Value("${jira.host}")
     private String jiraHost;
 

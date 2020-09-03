@@ -34,9 +34,7 @@ export class TicketBrowserComponent implements OnInit {
     }
 
     onHeaderChanged() {
-        for (let ticket of this.tickets) {
-            ticket.reorder(this.dashboard);
-        }
+
     }
 
     getColumnWidth(ticketAttribute: TicketAttribute): number {

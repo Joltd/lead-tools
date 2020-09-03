@@ -1,7 +1,7 @@
 <ticket-header [dashboard]="dashboard" (headerChanged)="onHeaderChanged()"></ticket-header>
 <div class="row-wrapper" *ngFor="let ticket of tickets">
     <mat-card class="row" (click)="edit(ticket)">
-        <attribute *ngFor="let attribute of ticket.attributes"
+        <attribute *ngFor="let attribute of ticket.visibleAttributes(dashboard)"
                    [attribute]="attribute.attribute"
                    [value]="attribute.value"
                    [style.width.px]="getColumnWidth(attribute)"></attribute>

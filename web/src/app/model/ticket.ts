@@ -36,6 +36,11 @@ export class Ticket {
         }
     }
 
+    visibleAttributes(dashboard: Dashboard): TicketAttribute[] {
+        return this.attributes.filter(ticketAttribute => dashboard.get(ticketAttribute.attribute))
+            .sort((left,right) => dashboard.get(left.attribute).position - dashboard.get(right.attribute).position)
+    }
+
     addAttributesFromDashboard(dashboard: Dashboard) {
         for (let column of dashboard.columns) {
             let ticketAttribute = this.get(column.attribute);
@@ -45,15 +50,6 @@ export class Ticket {
                 this.add(ticketAttribute);
             }
         }
-        this.reorder(dashboard);
     }
 
-    reorder(dashboard: Dashboard) {
-        let attributes = new Array<TicketAttribute>(this.attributes.length);
-        for (let attribute of this.attributes) {
-            let column = dashboard.get(attribute.attribute);
-            attributes[column.position] = attribute;
-        }
-        this.attributes = attributes;
-    }
 }
