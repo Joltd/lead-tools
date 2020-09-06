@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/attribute")
+@RequestMapping("/api/attribute")
 public class AttributeController {
 
     private final AttributeRepository attributeRepository;

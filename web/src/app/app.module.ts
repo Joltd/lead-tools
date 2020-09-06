@@ -9,7 +9,6 @@ import {ApiInterceptor} from "./service/api-interceptor.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {StatusComponent} from "./component/status/status.component";
-import {ToolbarComponent} from "./component/toolbar/toolbar.component";
 import {AttributeService} from "./service/attribute.service";
 import {DashboardService} from "./service/dashboard.service";
 import {DashboardBrowserComponent} from "./component/dashboard-browser/dashboard-browser.component";
@@ -48,8 +47,7 @@ import {MatSelectModule} from "@angular/material/select";
         TicketBrowserComponent,
         TicketHeaderComponent,
         TicketViewComponent,
-        StatusComponent,
-        ToolbarComponent
+        StatusComponent
     ],
     imports: [
         BrowserModule,
