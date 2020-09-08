@@ -50,4 +50,8 @@ export class TicketBrowserComponent implements OnInit {
         });
     }
 
+    jira() {
+        this.ticketService.jira().subscribe(() => this.load());
+    }
+
 }

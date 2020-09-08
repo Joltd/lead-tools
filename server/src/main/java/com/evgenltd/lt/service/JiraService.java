@@ -9,6 +9,8 @@ import com.evgenltd.lt.entity.TicketAttribute;
 import com.evgenltd.lt.repository.AttributeRepository;
 import com.evgenltd.lt.repository.TicketAttributeRepository;
 import com.evgenltd.lt.repository.TicketRepository;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +33,12 @@ public class JiraService {
         this.client = client;
     }
 
+    @Scheduled(cron = "0 0 10-20 * * *")
+    public void scheduled() {
+        load();
+    }
+
+    @Async
     public void load() {
         final List<TicketAttribute> result = ticketAttributeRepository.findByAttributeName("Jira");
         for (final TicketAttribute ticketAttribute : result) {

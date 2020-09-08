@@ -37,4 +37,8 @@ export class TicketService {
         return this.http.delete<void>(environment.apiUrl + TicketService.PATH + '/' + id);
     }
 
+    jira(): Observable<void> {
+        return this.http.post<void>(environment.apiUrl + TicketService.PATH + '/jira', null);
+    }
+
 }

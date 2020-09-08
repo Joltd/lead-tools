@@ -11,17 +11,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.net.URI;
 
 @SpringBootApplication
+@EnableScheduling
+@EnableAsync
 public class Application extends SpringBootServletInitializer {
-
-    // todo sorting
-    // todo query
-    // todo checking for other types
 
     @Value("${jira.host}")
     private String jiraHost;

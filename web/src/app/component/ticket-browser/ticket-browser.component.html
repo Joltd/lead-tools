@@ -4,7 +4,7 @@
         <input matInput>
     </mat-form-field>
     <button mat-button><mat-icon>search</mat-icon></button>
-    <button mat-button><mat-icon>cloud_download</mat-icon></button>
+    <button mat-button (click)="jira()"><mat-icon>cloud_download</mat-icon></button>
 </div>
 <ticket-header [dashboard]="dashboard" (headerChanged)="onHeaderChanged()"></ticket-header>
 <div class="row-wrapper" *ngFor="let ticket of tickets">
