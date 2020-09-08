@@ -8,3 +8,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.attribute {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+}

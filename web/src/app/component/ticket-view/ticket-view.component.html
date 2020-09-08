@@ -1,6 +1,6 @@
 <div mat-dialog-content class="content">
     <div class="attributes">
-        <div *ngFor="let attribute of ticket.attributes">
+        <div class="attribute" *ngFor="let attribute of ticket.attributes">
             <attribute [attribute]="attribute?.attribute" [value]="attribute?.value" (onValue)="attribute.value = $event" [edit]="true"></attribute>
             <button mat-button (click)="delete(attribute)"><mat-icon>delete</mat-icon></button>
         </div>

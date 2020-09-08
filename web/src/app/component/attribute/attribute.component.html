@@ -1,5 +1,8 @@
-<ng-container *ngIf="!edit" [ngSwitch]="attribute.type">
-    <ng-template [ngSwitchCase]="'STRING'">{{value}}</ng-template>
+<ng-container *ngIf="!edit || attribute.readonly" [ngSwitch]="attribute.type">
+    <ng-template [ngSwitchCase]="'STRING'">
+        <a *ngIf="attribute.link" target="_blank" [href]="attribute.link + '/' + value">{{value}}</a>
+        <div *ngIf="!attribute.link">{{value}}</div>
+    </ng-template>
     <ng-template [ngSwitchCase]="'TEXT'">{{value}}</ng-template>
     <ng-template [ngSwitchCase]="'NUMBER'">{{value}}</ng-template>
     <ng-template [ngSwitchCase]="'DATE'">{{value}}</ng-template>
@@ -7,7 +10,7 @@
         <mat-checkbox disabled [ngModel]="value == 'true'"></mat-checkbox>
     </ng-template>
 </ng-container>
-<ng-container *ngIf="edit" [ngSwitch]="attribute.type">
+<ng-container *ngIf="edit && !attribute.readonly" [ngSwitch]="attribute.type">
     <ng-template [ngSwitchCase]="'STRING'">
         <mat-form-field appearance="fill">
             <mat-label>{{attribute.name}}</mat-label>

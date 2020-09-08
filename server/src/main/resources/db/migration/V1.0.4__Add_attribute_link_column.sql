@@ -1,0 +1,1 @@
+alter table attributes add link varchar(255);

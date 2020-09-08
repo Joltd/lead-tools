@@ -17,6 +17,8 @@ public class Attribute {
 
     private Boolean readonly = false;
 
+    private String link;
+
     public Long getId() {
         return id;
     }
@@ -47,6 +49,14 @@ public class Attribute {
 
     public void setReadonly(final Boolean readonly) {
         this.readonly = readonly;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(final String link) {
+        this.link = link;
     }
 
     public enum Type {

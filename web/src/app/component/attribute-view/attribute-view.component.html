@@ -10,6 +10,10 @@
         </mat-select>
     </mat-form-field>
     <mat-checkbox [(ngModel)]="attribute.readonly">Readonly</mat-checkbox>
+    <mat-form-field>
+        <mat-label>Link</mat-label>
+        <input matInput [(ngModel)]="attribute.link">
+    </mat-form-field>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="delete()" *ngIf="attribute.id"><mat-icon>delete</mat-icon></button>
