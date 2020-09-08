@@ -56,7 +56,10 @@ public class TicketController {
     }
 
     @PostMapping("/jira")
-    public Response<Void> jira() {
+    public Response<Void> jira(@RequestBody final List<String> numbers) {
+        if (numbers != null && !numbers.isEmpty()) {
+            jiraService.addBatch(numbers);
+        }
         jiraService.load();
         return new Response<>();
     }

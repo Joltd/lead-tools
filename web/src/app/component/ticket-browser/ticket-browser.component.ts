@@ -5,6 +5,7 @@ import {Dashboard} from "../../model/dashboard";
 import {MatDialog} from "@angular/material/dialog";
 import {TicketViewComponent, TicketViewData} from "../ticket-view/ticket-view.component";
 import {TicketAttribute} from "../../model/ticket-attribute";
+import {TicketBatchComponent} from "../ticket-batch/ticket-batch.component";
 
 @Component({
     selector: 'ticket-browser',
@@ -51,7 +52,16 @@ export class TicketBrowserComponent implements OnInit {
     }
 
     jira() {
-        this.ticketService.jira().subscribe(() => this.load());
+        this.ticketService.jira(null).subscribe(() => this.load());
+    }
+
+    jiraAddBatch() {
+        let dialogRef = this.dialog.open(TicketBatchComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.load();
+            }
+        })
     }
 
 }

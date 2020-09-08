@@ -12,6 +12,8 @@ public interface TicketAttributeRepository extends JpaRepository<TicketAttribute
 
     List<TicketAttribute> findByAttributeName(String name);
 
+    Optional<TicketAttribute> findByAttributeNameAndValue(String name, String value);
+
     Optional<TicketAttribute> findByAttributeNameAndTicketId(String name, Long id);
 
 }

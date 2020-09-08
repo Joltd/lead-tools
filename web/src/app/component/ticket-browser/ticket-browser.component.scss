@@ -2,7 +2,7 @@
   margin-top: 1em;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1fr min-content min-content;
+  grid-template-columns: min-content 1fr min-content min-content;
 }
 
 .row-wrapper {

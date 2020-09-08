@@ -23,17 +23,43 @@ import java.util.stream.StreamSupport;
 public class JiraService {
 
     private final AttributeRepository attributeRepository;
+    private final TicketRepository ticketRepository;
     private final TicketAttributeRepository ticketAttributeRepository;
     private final JiraRestClient client;
 
     public JiraService(
             final AttributeRepository attributeRepository,
+            final TicketRepository ticketRepository,
             final TicketAttributeRepository ticketAttributeRepository,
             final JiraRestClient client
     ) {
         this.attributeRepository = attributeRepository;
+        this.ticketRepository = ticketRepository;
         this.ticketAttributeRepository = ticketAttributeRepository;
         this.client = client;
+    }
+
+    public void addBatch(final List<String> numbers) {
+        for (final String number : numbers) {
+            if (number.isBlank()) {
+                continue;
+            }
+
+            final Optional<TicketAttribute> result = ticketAttributeRepository.findByAttributeNameAndValue("Jira", number);
+            if (result.isEmpty()) {
+                final Attribute attribute = attributeRepository.findByName("Jira").orElse(null);
+                if (attribute == null) {
+                    continue;
+                }
+
+                final Ticket ticket = ticketRepository.save(new Ticket());
+                final TicketAttribute ticketAttribute = new TicketAttribute();
+                ticketAttribute.setAttribute(attribute);
+                ticketAttribute.setTicket(ticket);
+                ticketAttribute.setValue(number);
+                ticketAttributeRepository.save(ticketAttribute);
+            }
+        }
     }
 
     @Scheduled(cron = "0 0 10-20 * * *")

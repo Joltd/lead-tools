@@ -16,7 +16,7 @@ import {AttributeBrowserComponent} from "./component/attribute-browser/attribute
 import {AttributeViewComponent} from "./component/attribute-view/attribute-view.component";
 import {TicketViewComponent} from "./component/ticket-view/ticket-view.component";
 import {TicketHeaderComponent} from "./component/ticket-header/ticket-header.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -35,6 +35,7 @@ import {DashboardViewComponent} from "./component/dashboard-view/dashboard-view.
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatSelectModule} from "@angular/material/select";
+import {TicketBatchComponent} from "./component/ticket-batch/ticket-batch.component";
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import {MatSelectModule} from "@angular/material/select";
         TicketBrowserComponent,
         TicketHeaderComponent,
         TicketViewComponent,
+        TicketBatchComponent,
         StatusComponent
     ],
     imports: [
