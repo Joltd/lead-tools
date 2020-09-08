@@ -2,6 +2,7 @@ package com.evgenltd.lt.service;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
+import com.atlassian.jira.rest.client.api.domain.IssueField;
 import com.atlassian.jira.rest.client.api.domain.User;
 import com.evgenltd.lt.entity.Attribute;
 import com.evgenltd.lt.entity.Ticket;
@@ -14,7 +15,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 public class JiraService {
@@ -49,10 +52,20 @@ public class JiraService {
                     .recover(error -> null)
                     .claim();
 
-            setAttribute(ticketAttribute.getTicket(), "Summary", issue.getSummary());
-            setAttribute(ticketAttribute.getTicket(), "Assignee", Optional.ofNullable(issue.getAssignee()).map(User::getDisplayName).orElse(null));
-            setAttribute(ticketAttribute.getTicket(), "Status", issue.getStatus().getName());
+            final Ticket ticket = ticketAttribute.getTicket();
+            setAttribute(ticket, "Summary", issue.getSummary());
+            setAttribute(ticket, "Assignee", Optional.ofNullable(issue.getAssignee()).map(User::getDisplayName).orElse(null));
+            setAttribute(ticket, "Status", issue.getStatus().getName());
+            setAttribute(ticket, "Story Points", issue.getFields());
+            setAttribute(ticket, "Resolve Expected On", issue.getFields());
         }
+    }
+
+    private void setAttribute(final Ticket ticket, final String attributeName, final Iterable<IssueField> fields) {
+        StreamSupport.stream(fields.spliterator(), false)
+                .filter(field -> Objects.equals(field.getName(), attributeName))
+                .findFirst()
+                .ifPresent(field -> setAttribute(ticket, attributeName, getValue(field)));
     }
 
     private void setAttribute(final Ticket ticket, final String attributeName, final String value) {
@@ -81,6 +94,23 @@ public class JiraService {
         ticketAttribute.setTicket(ticket);
         ticketAttributeRepository.save(ticketAttribute);
         return ticketAttribute;
+    }
+
+    private String getValue(final IssueField field) {
+        final Object value = field.getValue();
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof String str) {
+            return str;
+        }
+
+        if (value instanceof Double dbl) {
+            return dbl.toString();
+        }
+
+        return value.toString();
     }
 
 }

@@ -12,7 +12,7 @@ public class Ticket {
     @Id
     private Long id;
 
-    @OneToMany(mappedBy = "ticket", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticket", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TicketAttribute> attributes = new HashSet<>();
 
     public Long getId() {
