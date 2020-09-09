@@ -1,10 +1,11 @@
 package com.evgenltd.lt.record;
 
 import com.evgenltd.lt.entity.Attribute;
+import com.evgenltd.lt.entity.Type;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public record AttributeRecord(Long id, String name, Attribute.Type type, Boolean readonly, String link) {
+public record AttributeRecord(Long id, String name, Type type, Boolean readonly, String link) {
 
     public static AttributeRecord from(final Attribute attribute) {
         return new AttributeRecord(

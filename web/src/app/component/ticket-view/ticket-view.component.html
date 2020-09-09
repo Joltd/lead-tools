@@ -8,8 +8,8 @@
     <div *ngIf="hasAllowedAttributes() | async">
         <mat-form-field>
             <mat-label>Add attribute</mat-label>
-            <input type="text" matInput [matAutocomplete]="autocomplete" [formControl]="attributeControl">
-            <mat-autocomplete #autocomplete="matAutocomplete" [displayWith]="displayFunction">
+            <input matInput [matAutocomplete]="autocomplete" [formControl]="attributeControl">
+            <mat-autocomplete #autocomplete="matAutocomplete" autoActiveFirstOption [displayWith]="displayFunction">
                 <mat-option *ngFor="let attribute of filteredAttributes | async" [value]="attribute">{{attribute.name}}</mat-option>
             </mat-autocomplete>
         </mat-form-field>
