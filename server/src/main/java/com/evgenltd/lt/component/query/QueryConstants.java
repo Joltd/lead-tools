@@ -11,21 +11,45 @@ public interface QueryConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
+  int SPACE = 1;
+  /** RegularExpression Id. */
   int EOL = 2;
   /** RegularExpression Id. */
-  int TRUE = 3;
+  int QUOTE = 3;
   /** RegularExpression Id. */
-  int FALSE = 4;
+  int LPAR = 4;
   /** RegularExpression Id. */
-  int STRING = 5;
+  int RPAR = 5;
   /** RegularExpression Id. */
-  int ATTRIBUTE = 6;
+  int EQUALS = 6;
   /** RegularExpression Id. */
-  int PHRASE = 7;
+  int NOT_EQUALS = 7;
   /** RegularExpression Id. */
-  int WORD = 8;
+  int GREATER = 8;
   /** RegularExpression Id. */
-  int EQUALS = 9;
+  int LESS = 9;
+  /** RegularExpression Id. */
+  int GREATER_EQUALS = 10;
+  /** RegularExpression Id. */
+  int LESS_EQUALS = 11;
+  /** RegularExpression Id. */
+  int LIKE = 12;
+  /** RegularExpression Id. */
+  int OR = 13;
+  /** RegularExpression Id. */
+  int AND = 14;
+  /** RegularExpression Id. */
+  int NOT = 15;
+  /** RegularExpression Id. */
+  int NULL = 16;
+  /** RegularExpression Id. */
+  int BOOL = 17;
+  /** RegularExpression Id. */
+  int NUMBERS = 18;
+  /** RegularExpression Id. */
+  int STRING = 19;
+  /** RegularExpression Id. */
+  int ATTRIBUTE = 20;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -35,13 +59,24 @@ public interface QueryConstants {
     "<EOF>",
     "\" \"",
     "<EOL>",
-    "\"true\"",
-    "\"false\"",
+    "\"\\\'\"",
+    "\"(\"",
+    "\")\"",
+    "\"=\"",
+    "\"!=\"",
+    "\">\"",
+    "\"<\"",
+    "\">=\"",
+    "\"<=\"",
+    "\"~\"",
+    "\"||\"",
+    "\"&&\"",
+    "\"!\"",
+    "\"null\"",
+    "<BOOL>",
+    "<NUMBERS>",
     "<STRING>",
     "<ATTRIBUTE>",
-    "<PHRASE>",
-    "<WORD>",
-    "\"=\"",
   };
 
 }

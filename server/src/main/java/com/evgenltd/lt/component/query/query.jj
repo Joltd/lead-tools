@@ -1,51 +1,72 @@
 options {
     STATIC = false;
+    DEBUG_PARSER = true;
 }
+
 PARSER_BEGIN(Query)
 
 package com.evgenltd.lt.component.query;
 
-import com.evgenltd.lt.entity.Attribute;
-import com.evgenltd.lt.entity.Ticket;
-import com.evgenltd.lt.entity.TicketAttribute;
+import com.evgenltd.lt.entity.Type;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Objects;import java.util.function.Function;
 
 public class Query {
 
-    private Map<String,Attribute.Type> typeIndex;
-    private Map<String,String> attributeIndex;
+    private Function<String,Value> resolveAttribute;
 
-    public Query(final InputStream stream, final Map<String,Attribute.Type> typeIndex, final Map<String,String> attributeIndex) {
+    public Query(final Function<String,Value> resolveAttribute, final InputStream stream) {
         this(stream);
-        this.typeIndex = typeIndex;
-        this.attributeIndex = attributeIndex;
+        this.resolveAttribute = resolveAttribute;
     }
+
+    private String removeFirstAndLast(final String value) {
+        if (value == null) {
+            return null;
+        }
+
+        if (value.length() <= 2) {
+            return "";
+        }
+
+        return value.substring(1, value.length() - 1);
+    }
+
 
 }
 
 PARSER_END(Query)
 
 SKIP: {
-    " "
+    <SPACE: " ">
 }
 TOKEN: {
     <EOL: "\n" | "\r" | "\r\n">
 }
-TOKEN: {
-    <TRUE: "true">
-    | <FALSE: "false">
-}
-TOKEN: {
-    <STRING: "'"<PHRASE>"'"> |
-    <ATTRIBUTE: <PHRASE>> |
-    <#PHRASE: <WORD>(["a"-"z","A"-"Z","0"-"9"," "])*<WORD>> |
-    <#WORD: (["a"-"z","A"-"Z","0"-"9"])+>
+TOKEN : {
+    <QUOTE: "'">
+    | <LPAR: "(">
+    | <RPAR: ")">
 }
 TOKEN : {
     <EQUALS: "=">
+    | <NOT_EQUALS: "!=">
+    | <GREATER: ">">
+    | <LESS: "<">
+    | <GREATER_EQUALS: ">=">
+    | <LESS_EQUALS: "<=">
+    | <LIKE: "~">
+    | <OR: "||">
+    | <AND: "&&">
+    | <NOT: "!">
+}
+TOKEN : {
+    <NULL: "null">
+    | <BOOL: ("true"|"false")>
+    | <NUMBERS: (["0"-"9"])+>
+    | <STRING: "'"(~["'","[","]","(",")"])+"'">
+    | <ATTRIBUTE: "["(["a"-"z","A"-"Z","0"-"9"," "])+"]">
 }
 
 boolean match():
@@ -57,50 +78,86 @@ boolean match():
 
 private boolean expression():
 {
-    String left, right;
-}
-{
-    left = stringValue()
-    <EQUALS>
-    right = stringValue()
-    { return Objects.equals(left, right); }
-}
-
-private String stringValue():
-{
-    String value;
+    boolean result, temp;
 }
 {
 
-    value = string()
-    { return value; }
+    result = condition()
+    (
+        <OR>
+        temp = condition()
+        { result = result || temp; }
+        |
+        <AND>
+        temp = condition()
+        { result = result && temp; }
+    )*
+    { return result; }
+
+}
+
+private boolean condition():
+{
+    Value left,right;
+    Operator operator;
+    boolean result;
+}
+{
+    left = value()
+    operator = operator()
+    right = value()
+    { return Comparison.compare(left, operator, right); }
     |
-    value = attribute()
-    { return value; }
+    <NOT> <LPAR> result = expression() <RPAR>
+    { return !result; }
+    |
+    <LPAR> result = expression() <RPAR>
+    { return result; }
 
 }
 
-private boolean bool():
+private Operator operator():
 {}
 {
-    <TRUE> { return true; }
-    | <FALSE> { return false; }
+    <EQUALS>
+    { return Operator.E; }
+    |
+    <NOT_EQUALS>
+    { return Operator.N_E; }
+    |
+    <GREATER>
+    { return Operator.G; }
+    |
+    <LESS>
+    { return Operator.L; }
+    |
+    <GREATER_EQUALS>
+    { return Operator.GE; }
+    |
+    <LESS_EQUALS>
+    { return Operator.LE; }
+    |
+    <LIKE>
+    { return Operator.LIKE; }
 }
 
-private String string():
-{
-    Token token;
-}
-{
-    token = <STRING>
-    { return token.image.replace("'",""); }
-}
-
-private String attribute():
+private Value value():
 {
     Token token;
 }
 {
     token = <ATTRIBUTE>
-    { return this.attributeIndex.get(token.image); }
+    { return resolveAttribute.apply(removeFirstAndLast(token.image)); }
+    |
+    <NULL>
+    { return new Value(null,null);}
+    |
+    token = <NUMBERS>
+    { return new Value(token.image, Type.NUMBER);}
+    |
+    token = <STRING>
+    { return new Value(removeFirstAndLast(token.image), Type.STRING); }
+    |
+    token = <BOOL>
+    { return new Value(token.image, Type.BOOLEAN); }
 }

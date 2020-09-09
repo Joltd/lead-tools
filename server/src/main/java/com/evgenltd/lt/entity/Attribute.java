@@ -59,12 +59,4 @@ public class Attribute {
         this.link = link;
     }
 
-    public enum Type {
-        STRING,
-        TEXT,
-        NUMBER,
-        DATE,
-        DATETIME,
-        BOOLEAN
-    }
 }
