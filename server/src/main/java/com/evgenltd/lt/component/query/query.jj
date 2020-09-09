@@ -1,0 +1,106 @@
+options {
+    STATIC = false;
+}
+PARSER_BEGIN(Query)
+
+package com.evgenltd.lt.component.query;
+
+import com.evgenltd.lt.entity.Attribute;
+import com.evgenltd.lt.entity.Ticket;
+import com.evgenltd.lt.entity.TicketAttribute;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+public class Query {
+
+    private Map<String,Attribute.Type> typeIndex;
+    private Map<String,String> attributeIndex;
+
+    public Query(final InputStream stream, final Map<String,Attribute.Type> typeIndex, final Map<String,String> attributeIndex) {
+        this(stream);
+        this.typeIndex = typeIndex;
+        this.attributeIndex = attributeIndex;
+    }
+
+}
+
+PARSER_END(Query)
+
+SKIP: {
+    " "
+}
+TOKEN: {
+    <EOL: "\n" | "\r" | "\r\n">
+}
+TOKEN: {
+    <TRUE: "true">
+    | <FALSE: "false">
+}
+TOKEN: {
+    <STRING: "'"<PHRASE>"'"> |
+    <ATTRIBUTE: <PHRASE>> |
+    <#PHRASE: <WORD>(["a"-"z","A"-"Z","0"-"9"," "])*<WORD>> |
+    <#WORD: (["a"-"z","A"-"Z","0"-"9"])+>
+}
+TOKEN : {
+    <EQUALS: "=">
+}
+
+boolean match():
+{}
+{
+    { return expression(); }
+    <EOL> 
+}
+
+private boolean expression():
+{
+    String left, right;
+}
+{
+    left = stringValue()
+    <EQUALS>
+    right = stringValue()
+    { return Objects.equals(left, right); }
+}
+
+private String stringValue():
+{
+    String value;
+}
+{
+
+    value = string()
+    { return value; }
+    |
+    value = attribute()
+    { return value; }
+
+}
+
+private boolean bool():
+{}
+{
+    <TRUE> { return true; }
+    | <FALSE> { return false; }
+}
+
+private String string():
+{
+    Token token;
+}
+{
+    token = <STRING>
+    { return token.image.replace("'",""); }
+}
+
+private String attribute():
+{
+    Token token;
+}
+{
+    token = <ATTRIBUTE>
+    { return this.attributeIndex.get(token.image); }
+}
