@@ -15,6 +15,7 @@ import com.evgenltd.lt.repository.TicketRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +55,9 @@ public class TicketService {
 
     private boolean ticketMatchQuery(final Ticket ticket, final String query) {
         try {
+            if (query == null) {
+                return true;
+            }
             return QueryBuilder.from(ticket, query).match();
         } catch (ParseException e) {
             log.error("Query failed", e);

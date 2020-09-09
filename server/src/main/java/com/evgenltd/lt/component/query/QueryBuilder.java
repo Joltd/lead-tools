@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class QueryBuilder {
 
-    private static final Value NOT_FOUND = new Value("NOT_FOUND", null);
+    private static final Value NOT_FOUND = new Value(null, null);
 
     public static Query from(final Ticket ticket, final String query) {
         final Map<String, Value> index = ticket.getAttributes()

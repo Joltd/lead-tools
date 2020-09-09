@@ -28,174 +28,149 @@ public class Query implements QueryConstants {
     }
 
   final public boolean match() throws ParseException {
-    trace_call("match");
-    try {
       {if (true) return expression();}
-      jj_consume_token(EOL);
+    jj_consume_token(EOL);
     throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("match");
-    }
   }
 
   final private boolean expression() throws ParseException {
-    trace_call("expression");
-    try {
     boolean result, temp;
-      result = condition();
-      label_1:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case OR:
-        case AND:
-          ;
-          break;
-        default:
-          jj_la1[0] = jj_gen;
-          break label_1;
-        }
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case OR:
-          jj_consume_token(OR);
-          temp = condition();
-          result = result || temp;
-          break;
-        case AND:
-          jj_consume_token(AND);
-          temp = condition();
-          result = result && temp;
-          break;
-        default:
-          jj_la1[1] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
+    result = condition();
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OR:
+      case AND:
+        ;
+        break;
+      default:
+        jj_la1[0] = jj_gen;
+        break label_1;
       }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OR:
+        jj_consume_token(OR);
+        temp = condition();
+          result = result || temp;
+        break;
+      case AND:
+        jj_consume_token(AND);
+        temp = condition();
+          result = result && temp;
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
       {if (true) return result;}
     throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("expression");
-    }
   }
 
   final private boolean condition() throws ParseException {
-    trace_call("condition");
-    try {
     Value left,right;
     Operator operator;
     boolean result;
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case NULL:
-      case BOOL:
-      case NUMBERS:
-      case STRING:
-      case ATTRIBUTE:
-        left = value();
-        operator = operator();
-        right = value();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NULL:
+    case BOOL:
+    case NUMBERS:
+    case STRING:
+    case ATTRIBUTE:
+      left = value();
+      operator = operator();
+      right = value();
       {if (true) return Comparison.compare(left, operator, right);}
-        break;
-      case NOT:
-        jj_consume_token(NOT);
-        jj_consume_token(LPAR);
-        result = expression();
-        jj_consume_token(RPAR);
+      break;
+    case NOT:
+      jj_consume_token(NOT);
+      jj_consume_token(LPAR);
+      result = expression();
+      jj_consume_token(RPAR);
       {if (true) return !result;}
-        break;
-      case LPAR:
-        jj_consume_token(LPAR);
-        result = expression();
-        jj_consume_token(RPAR);
+      break;
+    case LPAR:
+      jj_consume_token(LPAR);
+      result = expression();
+      jj_consume_token(RPAR);
       {if (true) return result;}
-        break;
-      default:
-        jj_la1[2] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("condition");
+      break;
+    default:
+      jj_la1[2] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
   final private Operator operator() throws ParseException {
-    trace_call("operator");
-    try {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case EQUALS:
-        jj_consume_token(EQUALS);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case EQUALS:
+      jj_consume_token(EQUALS);
       {if (true) return Operator.E;}
-        break;
-      case NOT_EQUALS:
-        jj_consume_token(NOT_EQUALS);
+      break;
+    case NOT_EQUALS:
+      jj_consume_token(NOT_EQUALS);
       {if (true) return Operator.N_E;}
-        break;
-      case GREATER:
-        jj_consume_token(GREATER);
+      break;
+    case GREATER:
+      jj_consume_token(GREATER);
       {if (true) return Operator.G;}
-        break;
-      case LESS:
-        jj_consume_token(LESS);
+      break;
+    case LESS:
+      jj_consume_token(LESS);
       {if (true) return Operator.L;}
-        break;
-      case GREATER_EQUALS:
-        jj_consume_token(GREATER_EQUALS);
+      break;
+    case GREATER_EQUALS:
+      jj_consume_token(GREATER_EQUALS);
       {if (true) return Operator.GE;}
-        break;
-      case LESS_EQUALS:
-        jj_consume_token(LESS_EQUALS);
+      break;
+    case LESS_EQUALS:
+      jj_consume_token(LESS_EQUALS);
       {if (true) return Operator.LE;}
-        break;
-      case LIKE:
-        jj_consume_token(LIKE);
+      break;
+    case LIKE:
+      jj_consume_token(LIKE);
       {if (true) return Operator.LIKE;}
-        break;
-      default:
-        jj_la1[3] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("operator");
+      break;
+    default:
+      jj_la1[3] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
   final private Value value() throws ParseException {
-    trace_call("value");
-    try {
     Token token;
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case ATTRIBUTE:
-        token = jj_consume_token(ATTRIBUTE);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case ATTRIBUTE:
+      token = jj_consume_token(ATTRIBUTE);
       {if (true) return resolveAttribute.apply(removeFirstAndLast(token.image));}
-        break;
-      case NULL:
-        jj_consume_token(NULL);
+      break;
+    case NULL:
+      jj_consume_token(NULL);
       {if (true) return new Value(null,null);}
-        break;
-      case NUMBERS:
-        token = jj_consume_token(NUMBERS);
+      break;
+    case NUMBERS:
+      token = jj_consume_token(NUMBERS);
       {if (true) return new Value(token.image, Type.NUMBER);}
-        break;
-      case STRING:
-        token = jj_consume_token(STRING);
+      break;
+    case STRING:
+      token = jj_consume_token(STRING);
       {if (true) return new Value(removeFirstAndLast(token.image), Type.STRING);}
-        break;
-      case BOOL:
-        token = jj_consume_token(BOOL);
+      break;
+    case BOOL:
+      token = jj_consume_token(BOOL);
       {if (true) return new Value(token.image, Type.BOOLEAN);}
-        break;
-      default:
-        jj_la1[4] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    throw new Error("Missing return statement in function");
-    } finally {
-      trace_return("value");
+      break;
+    default:
+      jj_la1[4] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
   /** Generated Token Manager. */
@@ -289,7 +264,6 @@ public class Query implements QueryConstants {
     jj_ntk = -1;
     if (token.kind == kind) {
       jj_gen++;
-      trace_token(token, "");
       return token;
     }
     token = oldToken;
@@ -304,7 +278,6 @@ public class Query implements QueryConstants {
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
     jj_gen++;
-      trace_token(token, " (in getNextToken)");
     return token;
   }
 
@@ -360,55 +333,12 @@ public class Query implements QueryConstants {
     return new ParseException(token, exptokseq, tokenImage);
   }
 
-  private int trace_indent = 0;
-  private boolean trace_enabled = true;
-
-/** Enable tracing. */
+  /** Enable tracing. */
   final public void enable_tracing() {
-    trace_enabled = true;
   }
 
-/** Disable tracing. */
+  /** Disable tracing. */
   final public void disable_tracing() {
-    trace_enabled = false;
-  }
-
-  private void trace_call(String s) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.println("Call:   " + s);
-    }
-    trace_indent = trace_indent + 2;
-  }
-
-  private void trace_return(String s) {
-    trace_indent = trace_indent - 2;
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.println("Return: " + s);
-    }
-  }
-
-  private void trace_token(Token t, String where) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.print("Consumed token: <" + tokenImage[t.kind]);
-      if (t.kind != 0 && !tokenImage[t.kind].equals("\"" + t.image + "\"")) {
-        System.out.print(": \"" + t.image + "\"");
-      }
-      System.out.println(" at line " + t.beginLine + " column " + t.beginColumn + ">" + where);
-    }
-  }
-
-  private void trace_scan(Token t1, int t2) {
-    if (trace_enabled) {
-      for (int i = 0; i < trace_indent; i++) { System.out.print(" "); }
-      System.out.print("Visited token: <" + tokenImage[t1.kind]);
-      if (t1.kind != 0 && !tokenImage[t1.kind].equals("\"" + t1.image + "\"")) {
-        System.out.print(": \"" + t1.image + "\"");
-      }
-      System.out.println(" at line " + t1.beginLine + " column " + t1.beginColumn + ">; Expected token: <" + tokenImage[t2] + ">");
-    }
   }
 
 }

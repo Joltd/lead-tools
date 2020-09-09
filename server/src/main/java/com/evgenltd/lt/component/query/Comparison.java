@@ -35,7 +35,11 @@ public class Comparison {
 
         if (operator.equals(Operator.LIKE)) {
             if (left.getType().equals(Type.STRING) && right.getType().equals(Type.STRING)) {
-                return left.getValue().matches(right.getValue());
+                String value = right.getValue();
+                value = value != null && !value.isBlank()
+                        ? ".*" + value + ".*"
+                        : value;
+                return left.getValue().matches(value);
             }
         }
 
