@@ -43,7 +43,7 @@ export class TicketHeaderComponent {
         } else if (column.order == 'NONE') {
             column.order = 'ASC';
         }
-        this.updateColumns();
+        this.updateColumnsWithEvent();
     }
 
     width(event, column: DashboardColumn) {
@@ -61,6 +61,10 @@ export class TicketHeaderComponent {
     }
 
     private updateColumns() {
+        this.dashboardService.update(this.dashboard).subscribe();
+    }
+
+    private updateColumnsWithEvent() {
         this.dashboardService.update(this.dashboard).subscribe(() => this.headerChanged.emit());
     }
 }

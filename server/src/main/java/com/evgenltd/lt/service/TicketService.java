@@ -55,7 +55,7 @@ public class TicketService {
 
     private boolean ticketMatchQuery(final Ticket ticket, final String query) {
         try {
-            if (query == null) {
+            if (query == null || query.isBlank()) {
                 return true;
             }
             return QueryBuilder.from(ticket, query).match();

@@ -53,12 +53,12 @@ export class TicketBrowserComponent implements OnInit {
             for (let ticket of result) {
                 ticket.addAttributesFromDashboard(this.dashboard);
             }
-            this.tickets = result;
+            this.tickets = result.sort((left, right) => this.compareTickets(left, right));
         });
     }
 
     onHeaderChanged() {
-
+        this.load();
     }
 
     getColumnWidth(ticketAttribute: TicketAttribute): number {
@@ -114,6 +114,35 @@ export class TicketBrowserComponent implements OnInit {
                 this.load();
             }
         })
+    }
+
+    private compareTickets(left: Ticket, right: Ticket): number {
+        let orderColumn = this.dashboard.columns.find(column => column.order != 'NONE');
+        if (!orderColumn) {
+            return 0;
+        }
+
+        let attribute = orderColumn.attribute.name;
+        let leftTicketAttribute = left.attributes.find(ticketAttribute => ticketAttribute.attribute.name == attribute);
+        let rightTicketAttribute = right.attributes.find(ticketAttribute => ticketAttribute.attribute.name == attribute);
+
+        let result = this.compare(leftTicketAttribute?.value, rightTicketAttribute?.value);
+
+        if (orderColumn.order == 'ASC') {
+            return result;
+        } else {
+            return -result;
+        }
+
+    }
+
+    private compare(left: string, right: string): number {
+        if (left) {
+            return right ? left.localeCompare(right) : 1;
+        } else {
+            return right ? -1 : 0;
+        }
+
     }
 
 }
