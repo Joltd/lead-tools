@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  collapsed: boolean = false;
+  constructor(private router: Router) {}
 
-  constructor() {}
-
-  toggleCollapsed() {
-    this.collapsed = !this.collapsed;
+  mainPage() {
+    this.router.navigate(['/']);
   }
 
 }

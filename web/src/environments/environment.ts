@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api',
-  jira: 'http://jira.magenta-technology.ru/rest/api/3'
+  apiUrl: 'http://localhost:8080/api'
 };
 
 /*
