@@ -38,7 +38,8 @@ export class TicketService {
     }
 
     jira(number: string[]): Observable<void> {
-        return this.http.post<void>(environment.apiUrl + TicketService.PATH + '/jira', number);
+        let body = number ? number : [];
+        return this.http.post<void>(environment.apiUrl + TicketService.PATH + '/jira', body);
     }
 
 }
