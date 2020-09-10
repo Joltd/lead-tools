@@ -1,5 +1,6 @@
 package com.evgenltd.lt.component.query;
 
+import com.evgenltd.lt.component.Utils;
 import com.evgenltd.lt.entity.Type;
 
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ public class Comparison {
         if (operator.equals(Operator.LIKE)) {
             if (left.getType().equals(Type.STRING) && right.getType().equals(Type.STRING)) {
                 String value = right.getValue();
-                value = value != null && !value.isBlank()
+                value = Utils.isNotBlank(value)
                         ? ".*" + value + ".*"
                         : value;
                 return left.getValue().matches(value);

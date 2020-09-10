@@ -1,0 +1,52 @@
+@mixin common {
+  padding: .25em .4em;
+  border-radius: .25rem;
+}
+
+.green {
+  @include common;
+  color: #fff;
+  background-color: #28a745;
+}
+
+.blue {
+  @include common;
+  color: #fff;
+  background-color: #007bff;
+}
+
+.yellow {
+  @include common;
+  color: #000;
+  background-color: #ffc107;
+}
+
+.gray {
+  @include common;
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.red {
+  @include common;
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.azure {
+  @include common;
+  color: #fff;
+  background-color: #17a2b8;
+}
+
+.light {
+  @include common;
+  color: #000;
+  background-color: #f8f9fa;
+}
+
+.dark {
+  @include common;
+  color: #fff;
+  background-color: #343a40;
+}

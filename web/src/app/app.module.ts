@@ -8,7 +8,6 @@ import {TicketService} from "./service/ticket.service";
 import {ApiInterceptor} from "./service/api-interceptor.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {StatusComponent} from "./component/status/status.component";
 import {AttributeService} from "./service/attribute.service";
 import {DashboardService} from "./service/dashboard.service";
 import {DashboardBrowserComponent} from "./component/dashboard-browser/dashboard-browser.component";
@@ -36,6 +35,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatSelectModule} from "@angular/material/select";
 import {TicketBatchComponent} from "./component/ticket-batch/ticket-batch.component";
+import {BadgeComponent} from "./component/badge/badge.component";
 
 @NgModule({
     declarations: [
@@ -49,7 +49,7 @@ import {TicketBatchComponent} from "./component/ticket-batch/ticket-batch.compon
         TicketHeaderComponent,
         TicketViewComponent,
         TicketBatchComponent,
-        StatusComponent
+        BadgeComponent
     ],
     imports: [
         BrowserModule,

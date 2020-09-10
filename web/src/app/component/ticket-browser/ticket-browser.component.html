@@ -16,6 +16,7 @@
         <attribute *ngFor="let attribute of ticket.visibleAttributes(dashboard)"
                    [attribute]="attribute.attribute"
                    [value]="attribute.value"
+                   [color]="attribute.color"
                    [style.width.px]="getColumnWidth(attribute)"></attribute>
     </mat-card>
 </div>

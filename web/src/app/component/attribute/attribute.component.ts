@@ -14,6 +14,9 @@ export class AttributeComponent {
     @Input()
     value: string;
 
+    @Input()
+    color: string;
+
     @Output()
     onValue: EventEmitter<string> = new EventEmitter<string>();
 

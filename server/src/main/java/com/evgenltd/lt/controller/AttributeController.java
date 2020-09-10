@@ -23,7 +23,7 @@ public class AttributeController {
     public Response<List<AttributeRecord>> list() {
         final List<AttributeRecord> result = attributeRepository.findAll(Sort.by("name"))
                 .stream()
-                .map(AttributeRecord::from)
+                .map(AttributeRecord::fromSimple)
                 .collect(Collectors.toList());
         return new Response<>(result);
     }

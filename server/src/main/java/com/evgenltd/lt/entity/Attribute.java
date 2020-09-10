@@ -1,6 +1,8 @@
 package com.evgenltd.lt.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "attributes")
@@ -18,6 +20,9 @@ public class Attribute {
     private Boolean readonly = false;
 
     private String link;
+
+    @OneToMany(mappedBy = "attribute", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<AttributeColor> colors = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -59,4 +64,11 @@ public class Attribute {
         this.link = link;
     }
 
+    public Set<AttributeColor> getColors() {
+        return colors;
+    }
+
+    public void setColors(final Set<AttributeColor> colors) {
+        this.colors = colors;
+    }
 }

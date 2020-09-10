@@ -1,4 +1,5 @@
 import {AttributeType} from "./attribute-type";
+import {AttributeColor} from "./attribute-color";
 
 export class Attribute {
 
@@ -12,6 +13,8 @@ export class Attribute {
 
     link: string;
 
+    colors: AttributeColor[] = [];
+
     static from(value: any): Attribute {
         let attribute = new Attribute();
         attribute.id = value.id;
@@ -19,6 +22,10 @@ export class Attribute {
         attribute.type = value.type;
         attribute.readonly = value.readonly;
         attribute.link = value.link;
+        for (let entry of value.colors) {
+            let color = AttributeColor.from(entry);
+            attribute.colors.push(color);
+        }
         return attribute;
     }
 
@@ -28,7 +35,8 @@ export class Attribute {
             name: this.name,
             type: this.type,
             readonly: this.readonly,
-            link: this.link
+            link: this.link,
+            colors: this.colors.map(entry => entry.toSave())
         }
     }
 }

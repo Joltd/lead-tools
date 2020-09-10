@@ -3,6 +3,8 @@ import {Attribute} from "../../model/attribute";
 import {AttributeType} from "../../model/attribute-type";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AttributeService} from "../../service/attribute.service";
+import {AttributeColor} from "../../model/attribute-color";
+import {BadgeComponent} from "../badge/badge.component";
 
 @Component({
     selector: 'attribute-view',
@@ -21,6 +23,8 @@ export class AttributeViewComponent implements OnInit {
         'DATETIME',
         'BOOLEAN'
     ];
+
+    colors: string[] = BadgeComponent.TYPES;
 
     constructor(
         private attributeService: AttributeService,
@@ -48,6 +52,14 @@ export class AttributeViewComponent implements OnInit {
     delete() {
         this.attributeService.delete(this.attribute.id)
             .subscribe(() => this.dialogRef.close(true));
+    }
+
+    addColor() {
+        this.attribute.colors.push(new AttributeColor());
+    }
+
+    deleteColor(attributeColor: AttributeColor) {
+        this.attribute.colors = this.attribute.colors.filter(entry => entry != attributeColor);
     }
 
 }

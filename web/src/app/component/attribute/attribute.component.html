@@ -1,11 +1,11 @@
 <ng-container *ngIf="!edit || attribute.readonly" [ngSwitch]="attribute.type">
     <ng-template [ngSwitchCase]="'STRING'">
         <a *ngIf="attribute.link" target="_blank" [href]="attribute.link + '/' + value">{{value}}</a>
-        <div *ngIf="!attribute.link">{{value}}</div>
+        <badge *ngIf="!attribute.link" [value]="value" [type]="color"></badge>
     </ng-template>
-    <ng-template [ngSwitchCase]="'TEXT'">{{value}}</ng-template>
-    <ng-template [ngSwitchCase]="'NUMBER'">{{value}}</ng-template>
-    <ng-template [ngSwitchCase]="'DATE'">{{value}}</ng-template>
+    <ng-template [ngSwitchCase]="'TEXT'"><badge [value]="value" [type]="color"></badge></ng-template>
+    <ng-template [ngSwitchCase]="'NUMBER'"><badge [value]="value" [type]="color"></badge></ng-template>
+    <ng-template [ngSwitchCase]="'DATE'"><badge [value]="value" [type]="color"></badge></ng-template>
     <ng-template [ngSwitchCase]="'BOOLEAN'">
         <mat-checkbox disabled [ngModel]="value == 'true'"></mat-checkbox>
     </ng-template>

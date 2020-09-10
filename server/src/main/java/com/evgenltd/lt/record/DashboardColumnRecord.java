@@ -9,7 +9,7 @@ public record DashboardColumnRecord(Long id, AttributeRecord attribute, Dashboar
     public static DashboardColumnRecord from(final DashboardColumn dashboardColumn) {
         return new DashboardColumnRecord(
                 dashboardColumn.getId(),
-                AttributeRecord.from(dashboardColumn.getAttribute()),
+                AttributeRecord.fromSimple(dashboardColumn.getAttribute()),
                 dashboardColumn.getOrder(),
                 dashboardColumn.getPosition(),
                 dashboardColumn.getWidth()

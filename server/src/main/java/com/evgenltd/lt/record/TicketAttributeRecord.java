@@ -1,6 +1,6 @@
 package com.evgenltd.lt.record;
 
-import com.evgenltd.lt.entity.Attribute;
+import com.evgenltd.lt.component.color.ColorResolver;
 import com.evgenltd.lt.entity.TicketAttribute;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -8,14 +8,16 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 public record TicketAttributeRecord(
         Long id,
         AttributeRecord attribute,
-        String value
+        String value,
+        String color
 ) {
 
     public static TicketAttributeRecord from(final TicketAttribute ticketAttribute) {
         return new TicketAttributeRecord(
                 ticketAttribute.getId(),
-                AttributeRecord.from(ticketAttribute.getAttribute()),
-                ticketAttribute.getValue()
+                AttributeRecord.fromSimple(ticketAttribute.getAttribute()),
+                ticketAttribute.getValue(),
+                ColorResolver.resolve(ticketAttribute)
         );
     }
 

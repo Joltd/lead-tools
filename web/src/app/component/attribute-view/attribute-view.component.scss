@@ -1,6 +1,27 @@
 .content {
   display: flex;
-  flex-direction: column;
   min-height: 20vh;
   min-width: 10vw;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.colors {
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.color-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 70px min-content;
+  align-items: end;
+
+  button {
+    align-self: center;
+  }
 }

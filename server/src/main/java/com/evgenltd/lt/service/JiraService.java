@@ -4,6 +4,7 @@ import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.IssueField;
 import com.atlassian.jira.rest.client.api.domain.User;
+import com.evgenltd.lt.component.Utils;
 import com.evgenltd.lt.entity.Attribute;
 import com.evgenltd.lt.entity.Ticket;
 import com.evgenltd.lt.entity.TicketAttribute;
@@ -41,7 +42,7 @@ public class JiraService {
 
     public void addBatch(final List<String> numbers) {
         for (final String number : numbers) {
-            if (number.isBlank()) {
+            if (Utils.isBlank(number)) {
                 continue;
             }
 

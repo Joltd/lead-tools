@@ -5,10 +5,13 @@ export class TicketAttribute {
 
     value: string;
 
+    color: string;
+
     static from(value: any): TicketAttribute {
         let ticketAttribute = new TicketAttribute();
         ticketAttribute.attribute = Attribute.from(value.attribute);
         ticketAttribute.value = value.value;
+        ticketAttribute.color = value.color;
         return ticketAttribute;
     }
 
