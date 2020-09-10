@@ -36,11 +36,6 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args);
     }
 
-//    @Override
-//    protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
-//        return builder.sources(Application.class);
-//    }
-
     @Bean(destroyMethod = "destroy")
     public DisposableHttpClient jiraHttpClient() {
         return new AsynchronousHttpClientFactory().createClient(

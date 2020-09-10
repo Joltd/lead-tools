@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <packaging>war</packaging>
     <artifactId>server</artifactId>
 
     <properties>
@@ -48,15 +49,6 @@
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
-                        <version>${spring-boot.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>repackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
@@ -79,35 +71,27 @@
                             </execution>
                         </executions>
                     </plugin>
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.tomcat.maven</groupId>-->
-<!--                        <artifactId>tomcat7-maven-plugin</artifactId>-->
-<!--                        <version>2.2</version>-->
-<!--                        <configuration>-->
-<!--                            <url>http://135.181.93.144:8080/manager/text</url>-->
-<!--                            <path>/lead-tools</path>-->
-<!--                            <username>root</username>-->
-<!--                            <password>P94fEQw0A4mF3O8BcpVV</password>-->
-<!--                        </configuration>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <goals>-->
-<!--                                    <goal>redeploy</goal>-->
-<!--                                </goals>-->
-<!--                                <phase>install</phase>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <configuration>
+                            <url>http://135.181.93.144:8080/manager/text</url>
+                            <path>/lead-tools</path>
+                            <username>root</username>
+                            <password>P94fEQw0A4mF3O8BcpVV</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>redeploy</goal>
+                                </goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
-
-<!--            <dependencies>-->
-<!--                <dependency>-->
-<!--                    <groupId>org.springframework.boot</groupId>-->
-<!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--                    <scope>provided</scope>-->
-<!--                </dependency>-->
-<!--            </dependencies>-->
         </profile>
     </profiles>
 
@@ -176,6 +160,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- integration -->
