@@ -63,7 +63,7 @@ public class JiraService {
         }
     }
 
-    @Scheduled(cron = "0 0 10-20 * * *")
+//    @Scheduled(cron = "0 0 10-20 * * *")
     public void scheduled() {
         load();
     }

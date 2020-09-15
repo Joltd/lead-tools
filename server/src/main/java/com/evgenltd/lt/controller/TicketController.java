@@ -3,6 +3,7 @@ package com.evgenltd.lt.controller;
 import com.evgenltd.lt.entity.Ticket;
 import com.evgenltd.lt.record.TicketRecord;
 import com.evgenltd.lt.repository.TicketRepository;
+import com.evgenltd.lt.service.AirtableJiraIntegration;
 import com.evgenltd.lt.service.JiraService;
 import com.evgenltd.lt.service.TicketService;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +18,18 @@ public class TicketController {
     private final TicketRepository ticketRepository;
     private final TicketService ticketService;
     private final JiraService jiraService;
+    private final AirtableJiraIntegration airtableJiraIntegration;
 
     public TicketController(
             final TicketRepository ticketRepository,
             final TicketService ticketService,
-            final JiraService jiraService
+            final JiraService jiraService,
+            final AirtableJiraIntegration airtableJiraIntegration
     ) {
         this.ticketRepository = ticketRepository;
         this.ticketService = ticketService;
         this.jiraService = jiraService;
+        this.airtableJiraIntegration = airtableJiraIntegration;
     }
 
     @GetMapping
@@ -61,6 +65,12 @@ public class TicketController {
             jiraService.addBatch(numbers);
         }
         jiraService.load();
+        return new Response<>();
+    }
+
+    @GetMapping("/airtable")
+    public Response<Void> airtable() {
+        airtableJiraIntegration.load();
         return new Response<>();
     }
 
