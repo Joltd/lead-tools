@@ -42,10 +42,10 @@ public class AirtableJiraIntegration {
                 .build();
     }
 
-    @Scheduled(cron = "0 0 10-20 * * *")
-    public void scheduled() {
-        load();
-    }
+//    @Scheduled(cron = "0 0 10-20 * * *")
+//    public void scheduled() {
+//        load();
+//    }
 
     public void load() {
 
