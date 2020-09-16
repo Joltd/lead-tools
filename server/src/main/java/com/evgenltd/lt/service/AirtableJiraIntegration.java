@@ -4,6 +4,7 @@ import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.atlassian.jira.rest.client.api.domain.IssueField;
 import com.atlassian.jira.rest.client.api.domain.User;
+import com.evgenltd.lt.component.Utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class AirtableJiraIntegration {
 //        load();
 //    }
 
-    public void load() {
+    public void load(final String number) {
 
         final Body body = airtable.get()
                 .uri(uriBuilder -> uriBuilder.path("/Tickets/").queryParam("fields[]", "Number").build())
@@ -56,7 +57,9 @@ public class AirtableJiraIntegration {
                 .block();
 
         for (final Ticket ticket : body.getRecords()) {
-            refresh(ticket);
+            if (Utils.isBlank(number) || Objects.equals(ticket.getFields().getOrDefault("Number", ""), number)) {
+                refresh(ticket);
+            }
         }
 
     }

@@ -68,9 +68,9 @@ public class TicketController {
         return new Response<>();
     }
 
-    @GetMapping("/airtable")
-    public Response<Void> airtable() {
-        airtableJiraIntegration.load();
+    @GetMapping("/airtable/{number}")
+    public Response<Void> airtable(@PathVariable("number") final String number) {
+        airtableJiraIntegration.load(number);
         return new Response<>();
     }
 
