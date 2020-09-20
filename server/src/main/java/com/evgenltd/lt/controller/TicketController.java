@@ -17,19 +17,13 @@ public class TicketController {
 
     private final TicketRepository ticketRepository;
     private final TicketService ticketService;
-    private final JiraService jiraService;
-    private final AirtableJiraIntegration airtableJiraIntegration;
 
     public TicketController(
             final TicketRepository ticketRepository,
-            final TicketService ticketService,
-            final JiraService jiraService,
-            final AirtableJiraIntegration airtableJiraIntegration
+            final TicketService ticketService
     ) {
         this.ticketRepository = ticketRepository;
         this.ticketService = ticketService;
-        this.jiraService = jiraService;
-        this.airtableJiraIntegration = airtableJiraIntegration;
     }
 
     @GetMapping
@@ -56,21 +50,6 @@ public class TicketController {
     @DeleteMapping("/{id}")
     public Response<Void> remove(@PathVariable("id") final Long id) {
         ticketRepository.deleteById(id);
-        return new Response<>();
-    }
-
-    @PostMapping("/jira")
-    public Response<Void> jira(@RequestBody final List<String> numbers) {
-        if (numbers != null && !numbers.isEmpty()) {
-            jiraService.addBatch(numbers);
-        }
-        jiraService.load();
-        return new Response<>();
-    }
-
-    @GetMapping("/airtable/{number}")
-    public Response<Void> airtable(@PathVariable("number") final String number) {
-        airtableJiraIntegration.load(number);
         return new Response<>();
     }
 
