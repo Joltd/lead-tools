@@ -56,6 +56,9 @@ public class AirtableJiraIntegration {
 
         for (final String number : numbers.split(",")) {
             final Issue issue = jiraService.loadByNumber(number);
+            if (issue == null) {
+                continue;
+            }
 
             final AirtableRecord airtableRecord = ticketIndex.computeIfAbsent(issue.getKey(), (key) -> new AirtableRecord());
             refreshAirtableWithJira(airtableRecord, issue);
@@ -66,6 +69,9 @@ public class AirtableJiraIntegration {
         final List<? extends AirtableRecord> airtableRecords = airtableService.load("/Tickets/", "Number");
         for (final AirtableRecord airtableRecord : airtableRecords) {
             final Issue issue = jiraService.loadByNumber(airtableRecord.get("Number").toString());
+            if (issue == null) {
+                continue;
+            }
             refreshAirtableWithJira(airtableRecord, issue);
         }
     }

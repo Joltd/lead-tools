@@ -7,6 +7,7 @@ public final class AirtableBody {
 
     public static final class Request {
         private List<AirtableRecord> records = new ArrayList<>();
+        private boolean typecast = true;
 
         public List<AirtableRecord> getRecords() {
             return records;
@@ -16,6 +17,13 @@ public final class AirtableBody {
             this.records = records;
         }
 
+        public boolean isTypecast() {
+            return typecast;
+        }
+
+        public void setTypecast(final boolean typecast) {
+            this.typecast = typecast;
+        }
     }
 
     public static final class Response {
