@@ -76,10 +76,6 @@
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <version>2.2</version>
                         <configuration>
-                            <url>http://135.181.93.144:8080/manager/text</url>
-                            <path>/lead-tools</path>
-                            <username>root</username>
-                            <password>P94fEQw0A4mF3O8BcpVV</password>
                         </configuration>
                         <executions>
                             <execution>
