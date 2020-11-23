@@ -6,7 +6,7 @@
 
     <groupId>com.evgenltd.lt</groupId>
     <artifactId>lead-tools</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>1.0</version>
 
     <properties>
@@ -48,35 +48,14 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                     </plugin>
                     <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.0.2</version>
-                        <executions>
-                            <execution>
-                                <id>copy web</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${build.directory}/classes/static</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>../web/dist/web</directory>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <version>2.2</version>
                         <configuration>
-                            <url>http://135.181.93.144:8080/manager/text</url>
+                            <url>http://${tomcat.host}/manager/text</url>
                             <path>/lead-tools</path>
-                            <username>root</username>
-                            <password>P94fEQw0A4mF3O8BcpVV</password>
+                            <username>${tomcat.user}</username>
+                            <password>${tomcat.password}</password>
                         </configuration>
                         <executions>
                             <execution>
