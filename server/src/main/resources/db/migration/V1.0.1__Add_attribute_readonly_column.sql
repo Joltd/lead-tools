@@ -1,1 +1,0 @@
-alter table attributes add readonly tinyint;

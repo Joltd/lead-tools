@@ -1,8 +1,0 @@
-<div class="browser">
-    <mat-card class="row" *ngFor="let attribute of attributes" (click)="edit(attribute)">
-        <div>{{attribute.name}}</div>
-        <div>{{attribute.type}}</div>
-        <mat-checkbox [checked]="attribute.readonly" [disabled]="true"></mat-checkbox>
-    </mat-card>
-</div>
-<button mat-fab class="fab" (click)="add()"><mat-icon>add</mat-icon></button>
